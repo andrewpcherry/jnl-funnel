@@ -415,6 +415,13 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 .showcase-pts span{font-size:14px;font-weight:600;color:var(--night);
   background:#fff;border:1px solid var(--line-2);border-radius:30px;padding:8px 16px}
 
+/* The reviews sit between the hero and the quiz now, as proof on the way
+   past rather than a section anyone is meant to stop at, so it runs tighter
+   than a full section and its heading is a size down. */
+.proof{padding:52px 0 56px}
+.proof .sec-h{font-size:clamp(25px,2.8vw,34px);max-width:24ch}
+.proof .sec-p{font-size:16.5px}
+
 /* ---------- Google rating card ---------- */
 .gmb{margin-top:20px}
 .gmb-card{display:inline-flex;align-items:center;gap:14px;text-decoration:none;background:#fff;
@@ -587,116 +594,7 @@ h1,h2,h3,h4,h5,
   <div style="--tn:var(--orange)"><b>Any</b><span>Condition, we take it as it stands</span></div>
 </div></div>
 
-<section id="quiz"><div class="wrap">
-  <span class="eyebrow">Start here</span>
-  <h2 class="sec-h">Most people are in more than one situation at once.</h2>
-  <p class="sec-p">An inherited house that is also heading for auction. A rental that needs a new roof.
-    A divorce with a payment already behind. Those combinations are the norm, and they are exactly what a
-    "get your cash offer" form cannot handle. Tick everything that applies.</p>
-
-  <div class="shell" id="shell">
-    <div class="shell-top">
-      <div class="row">
-        <div class="t" id="qTitle">Your home sale options</div>
-        <div class="s" id="qStep">About two minutes</div>
-      </div>
-      <div class="bar"><i id="qBar"></i></div>
-    </div>
-    <div class="shell-body" id="qBody"></div>
-  </div>
-</div></section>
-
-<section class="on-tint"><div class="wrap">
-  <span class="eyebrow">How it works</span>
-  <h2 class="sec-h">Four steps, and you can stop at any one of them.</h2>
-  <div class="steps">
-    <div class="step" style="--c:var(--emerald);--cs:var(--emerald-soft)"><div class="n">1</div>
-      <h4>Tell us the situation</h4>
-      <p>About two minutes. No account, no credit check, nothing pulled on your property.</p></div>
-    <div class="step" style="--c:var(--orange);--cs:var(--orange-soft)"><div class="n">2</div>
-      <h4>We call you back</h4>
-      <p>A real person, usually the same day. We go through the property with you and what it would actually pay you.</p></div>
-    <div class="step" style="--c:var(--electric);--cs:var(--electric-soft)"><div class="n">3</div>
-      <h4>One walkthrough</h4>
-      <p>Twenty minutes, in person or on video. No cleaning, no staging, no strangers through the house.</p></div>
-    <div class="step" style="--c:var(--violet);--cs:var(--violet-soft)"><div class="n">4</div>
-      <h4>You get the number</h4>
-      <p>What we would pay, what it nets you, and the date you would close on. Then you decide, or you do not.</p></div>
-  </div>
-</div></section>
-
-<section class="on-tint"><div class="wrap">
-  <div class="showcase">
-    <div>
-      <span class="eyebrow">What we actually do with them</span>
-      <h2 class="sec-h">We buy the house as it stands, then we put it right.</h2>
-      <p class="sec-p">This one is ours. Ordinary Panhandle brick ranch, bought from an owner who did not
-        want to take the work on, renovated and back in use. You do not have to clean it, clear it, fix it
-        or show it. Take what you want out of it and leave the rest where it is.</p>
-      <div class="showcase-pts">
-        <span>No repairs asked of you</span>
-        <span>No showings</span>
-        <span>Leave what you do not want</span>
-      </div>
-    </div>
-    <img src="img/home-renovated.png" width="900" height="1021" loading="lazy"
-      alt="A single storey brick home in the Florida Panhandle bought and renovated by JNL Solutions">
-  </div>
-</div></section>
-
-<section><div class="wrap">
-  <span class="eyebrow">Who calls us</span>
-  <h2 class="sec-h">You are not the first person in this position.</h2>
-  <p class="sec-p">These are the ones that come up most, and most callers tick two or three of them rather
-    than one.</p>
-  <div class="sits">
-    <div class="sit" style="--c:var(--violet);--cs:var(--violet-soft)"><h4>You inherited it</h4>
-      <p>Probate part-finished, three siblings with three opinions, and a house still full of forty years of belongings.</p></div>
-    <div class="sit" style="--c:var(--coral);--cs:var(--coral-soft)"><h4>Foreclosure or a deadline</h4>
-      <p>Missed payments, a notice of default, an auction date, back taxes or a lien. The options narrow every week.</p></div>
-    <div class="sit" style="--c:var(--orange);--cs:var(--orange-soft)"><h4>It needs more work than you have</h4>
-      <p>Roof, foundation, fire or water damage, or years of clutter. No bank will lend on it and no agent will list it.</p></div>
-    <div class="sit" style="--c:var(--electric);--cs:var(--electric-soft)"><h4>You are done being a landlord</h4>
-      <p>A tenant behind on rent, an eviction half-started, repairs stacking up, and you live three states away.</p></div>
-    <div class="sit" style="--c:var(--emerald);--cs:var(--emerald-soft)"><h4>You have to be out by a date</h4>
-      <p>A job, a divorce, a care move, or a house you are already under contract to buy.</p></div>
-    <div class="sit" style="--c:var(--sky);--cs:var(--sky-soft)"><h4>You are just working it out</h4>
-      <p>Nothing is wrong. You want to know what it is worth, and what selling as it stands would actually net you against listing it.</p></div>
-  </div>
-  <p class="sec-p" style="margin-top:34px"><b>The combinations are where it gets useful.</b> An inherited
-    house heading for auction is a different problem from either one on its own, because probate does not
-    pause for the foreclosure calendar. Tick both and the questions, and the answer, change accordingly.</p>
-</div></section>
-
-<section class="on-tint"><div class="wrap">
-  <div class="guide">
-    <div>
-      <span class="eyebrow dark">Free, read it before you talk to anyone</span>
-      <h3>The seller's guide, from JNL Solutions</h3>
-      <p>What your house is actually worth to you once the costs are taken out, written for people in a
-        situation rather than people browsing.</p>
-      <ul>
-        <li>The net proceeds worksheet, so you can compare offers on the same basis</li>
-        <li>What selling costs actually come out of the price, and which ones are negotiable</li>
-        <li>What a lender's repair list does to a sale, and when it kills one</li>
-        <li>What a tenant in place changes about who will buy it</li>
-        <li>Where the foreclosure timeline still gives you room</li>
-      </ul>
-      <a class="btn btn-act" style="margin-top:32px" href="#" onclick="return getGuide(event)">Download The Guide</a>
-    </div>
-    <div class="gcover">
-      <div class="k">Homeowner guide</div>
-      <h4>Cash, terms, take-over, or list?</h4>
-      <div class="sw">
-        <i style="background:var(--emerald)"></i><i style="background:var(--electric)"></i>
-        <i style="background:var(--amber)"></i><i style="background:var(--sky)"></i>
-      </div>
-      <p>Work out your own numbers before anybody quotes you one.</p>
-    </div>
-  </div>
-</div></section>
-
-<section><div class="wrap">
+<section class="proof"><div class="wrap">
   <span class="eyebrow">In their own words</span>
   <div class="gmb" id="gmb">
     <a class="gmb-card" id="gmbLink" href="#" target="_blank" rel="noopener">
@@ -790,7 +688,117 @@ h1,h2,h3,h4,h5,
   <p class="marquee-hint">Hover to hold one still, or drag to move through them. All of these are public on <a id="gmbLink2" href="#" target="_blank" rel="noopener">JNL's Google listing</a>.</p>
 </div></section>
 
+<section id="quiz" class="on-tint"><div class="wrap">
+  <span class="eyebrow">Start here</span>
+  <h2 class="sec-h">Most people are in more than one situation at once.</h2>
+  <p class="sec-p">An inherited house that is also heading for auction. A rental that needs a new roof.
+    A divorce with a payment already behind. Those combinations are the norm, and they are exactly what a
+    "get your cash offer" form cannot handle. Tick everything that applies.</p>
+
+  <div class="shell" id="shell">
+    <div class="shell-top">
+      <div class="row">
+        <div class="t" id="qTitle">Your home sale options</div>
+        <div class="s" id="qStep">About two minutes</div>
+      </div>
+      <div class="bar"><i id="qBar"></i></div>
+    </div>
+    <div class="shell-body" id="qBody"></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow">How it works</span>
+  <h2 class="sec-h">Four steps, and you can stop at any one of them.</h2>
+  <div class="steps">
+    <div class="step" style="--c:var(--emerald);--cs:var(--emerald-soft)"><div class="n">1</div>
+      <h4>Tell us the situation</h4>
+      <p>About two minutes. No account, no credit check, nothing pulled on your property.</p></div>
+    <div class="step" style="--c:var(--orange);--cs:var(--orange-soft)"><div class="n">2</div>
+      <h4>We call you back</h4>
+      <p>A real person, usually the same day. We go through the property with you and what it would actually pay you.</p></div>
+    <div class="step" style="--c:var(--electric);--cs:var(--electric-soft)"><div class="n">3</div>
+      <h4>One walkthrough</h4>
+      <p>Twenty minutes, in person or on video. No cleaning, no staging, no strangers through the house.</p></div>
+    <div class="step" style="--c:var(--violet);--cs:var(--violet-soft)"><div class="n">4</div>
+      <h4>You get the number</h4>
+      <p>What we would pay, what it nets you, and the date you would close on. Then you decide, or you do not.</p></div>
+  </div>
+</div></section>
+
 <section class="on-tint"><div class="wrap">
+  <div class="showcase">
+    <div>
+      <span class="eyebrow">What we actually do with them</span>
+      <h2 class="sec-h">We buy the house as it stands, then we put it right.</h2>
+      <p class="sec-p">This one is ours. Ordinary Panhandle brick ranch, bought from an owner who did not
+        want to take the work on, renovated and back in use. You do not have to clean it, clear it, fix it
+        or show it. Take what you want out of it and leave the rest where it is.</p>
+      <div class="showcase-pts">
+        <span>No repairs asked of you</span>
+        <span>No showings</span>
+        <span>Leave what you do not want</span>
+      </div>
+    </div>
+    <img src="img/home-renovated.png" width="900" height="1021" loading="lazy"
+      alt="A single storey brick home in the Florida Panhandle bought and renovated by JNL Solutions">
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <span class="eyebrow">Who calls us</span>
+  <h2 class="sec-h">You are not the first person in this position.</h2>
+  <p class="sec-p">These are the ones that come up most, and most callers tick two or three of them rather
+    than one.</p>
+  <div class="sits">
+    <div class="sit" style="--c:var(--violet);--cs:var(--violet-soft)"><h4>You inherited it</h4>
+      <p>Probate part-finished, three siblings with three opinions, and a house still full of forty years of belongings.</p></div>
+    <div class="sit" style="--c:var(--coral);--cs:var(--coral-soft)"><h4>Foreclosure or a deadline</h4>
+      <p>Missed payments, a notice of default, an auction date, back taxes or a lien. The options narrow every week.</p></div>
+    <div class="sit" style="--c:var(--orange);--cs:var(--orange-soft)"><h4>It needs more work than you have</h4>
+      <p>Roof, foundation, fire or water damage, or years of clutter. No bank will lend on it and no agent will list it.</p></div>
+    <div class="sit" style="--c:var(--electric);--cs:var(--electric-soft)"><h4>You are done being a landlord</h4>
+      <p>A tenant behind on rent, an eviction half-started, repairs stacking up, and you live three states away.</p></div>
+    <div class="sit" style="--c:var(--emerald);--cs:var(--emerald-soft)"><h4>You have to be out by a date</h4>
+      <p>A job, a divorce, a care move, or a house you are already under contract to buy.</p></div>
+    <div class="sit" style="--c:var(--sky);--cs:var(--sky-soft)"><h4>You are just working it out</h4>
+      <p>Nothing is wrong. You want to know what it is worth, and what selling as it stands would actually net you against listing it.</p></div>
+  </div>
+  <p class="sec-p" style="margin-top:34px"><b>The combinations are where it gets useful.</b> An inherited
+    house heading for auction is a different problem from either one on its own, because probate does not
+    pause for the foreclosure calendar. Tick both and the questions, and the answer, change accordingly.</p>
+</div></section>
+
+<section class="on-tint"><div class="wrap">
+  <div class="guide">
+    <div>
+      <span class="eyebrow dark">Free, read it before you talk to anyone</span>
+      <h3>The seller's guide, from JNL Solutions</h3>
+      <p>What your house is actually worth to you once the costs are taken out, written for people in a
+        situation rather than people browsing.</p>
+      <ul>
+        <li>The net proceeds worksheet, so you can compare offers on the same basis</li>
+        <li>What selling costs actually come out of the price, and which ones are negotiable</li>
+        <li>What a lender's repair list does to a sale, and when it kills one</li>
+        <li>What a tenant in place changes about who will buy it</li>
+        <li>Where the foreclosure timeline still gives you room</li>
+      </ul>
+      <a class="btn btn-act" style="margin-top:32px" href="#" onclick="return getGuide(event)">Download The Guide</a>
+    </div>
+    <div class="gcover">
+      <div class="k">Homeowner guide</div>
+      <h4>Cash, terms, take-over, or list?</h4>
+      <div class="sw">
+        <i style="background:var(--emerald)"></i><i style="background:var(--electric)"></i>
+        <i style="background:var(--amber)"></i><i style="background:var(--sky)"></i>
+      </div>
+      <p>Work out your own numbers before anybody quotes you one.</p>
+    </div>
+  </div>
+</div></section>
+
+
+<section><div class="wrap">
   <span class="eyebrow">Straight answers</span>
   <h2 class="sec-h">The questions everybody asks first.</h2>
   <div class="faq">
