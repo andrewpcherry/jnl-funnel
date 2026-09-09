@@ -435,9 +435,37 @@ tr:last-child td,tr:last-child th{border-bottom:0}
    JNL's own published reviews, set in the same coloured-field language as
    the situation cards so a seller reads a quote as belonging to the
    situation it sits next to. */
-.quotes{display:grid;gap:18px;margin-top:44px}
-@media(min-width:700px){.quotes{grid-template-columns:1fr 1fr}}
-@media(min-width:1040px){.quotes{grid-template-columns:repeat(3,1fr)}}
+/* The reviews run across the page rather than sitting in a grid, which is
+   also what JNL's own site does with theirs (a Swiper carousel).
+
+   Seamless because the track is rendered twice and translated exactly -50%,
+   so the loop point lands on an identical frame. Duplicating in the DOM
+   rather than in JS keeps it working with scripting off.
+
+   It is a real scroll container underneath, so a seller can drag or flick
+   through them, and the animation is suspended while they do. Under
+   prefers-reduced-motion it stops being a marquee entirely and becomes a
+   plain snap-scrolling row. */
+.marquee{margin-top:38px;overflow-x:auto;overflow-y:hidden;
+  scrollbar-width:none;-ms-overflow-style:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.marquee::-webkit-scrollbar{display:none}
+.marquee-track{display:flex;gap:18px;width:max-content;
+  animation:marquee 90s linear infinite}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee.dragging .marquee-track{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee .quote{flex:0 0 356px;white-space:normal}
+@media(max-width:520px){.marquee .quote{flex-basis:290px}}
+.marquee-hint{margin-top:16px;font-size:14px;color:var(--ink-soft)}
+.marquee-hint a{color:var(--act);font-weight:600}
+@media(prefers-reduced-motion:reduce){
+  .marquee{scroll-snap-type:x mandatory}
+  .marquee-track{animation:none}
+  .marquee .quote{scroll-snap-align:start}
+}
 .quote{margin:0;background:#fff;border:1px solid var(--line);border-radius:10px;
   padding:26px 24px 22px}
 .quote blockquote{margin:0;font-size:16px;line-height:1.62;color:var(--ink-2);font-weight:400}
@@ -683,37 +711,83 @@ h1,h2,h3,h4,h5,
   <h2 class="sec-h">People who were in a situation, and what happened next.</h2>
   <p class="sec-p">Reproduced as written, names as the reviewers gave them. The rating comes from JNL's
     Google listing, where every review is public and you can read all of them.</p>
-  <div class="quotes">
-    <figure class="quote" style="--c:var(--violet);--cs:var(--violet-soft)">
-      <blockquote>JNL Solutions went above and beyond to close my mother's house in one month. Jared was
-        accommodating and sensitive to my situation of selling my childhood home after my mother's
-        passing.</blockquote>
+  <div class="marquee" id="marquee">
+    <div class="marquee-track" id="mtrack">
+    <figure class="quote" style="--c:var(--violet)">
+      <blockquote>JNL Solutions went above and beyond to close my mother's house in one month. Jared was accommodating and sensitive to my situation of selling my childhood home after my mother's passing.</blockquote>
       <figcaption>Melanie Miller Palmer</figcaption></figure>
-    <figure class="quote" style="--c:var(--coral);--cs:var(--coral-soft)">
-      <blockquote>I had a seller that was in a must sell situation and could not afford to fix her house up
-        in order to sell. I contacted Jared at JNL Solutions and he was able to purchase my seller's home at
-        a very reasonable price within just a few weeks. Jared was able to close on her house within 2 weeks
-        without any issues.</blockquote>
+    <figure class="quote" style="--c:var(--coral)">
+      <blockquote>I had a seller that was in a must sell situation and could not afford to fix her house up in order to sell. I contacted Jared at JNL Solutions and he was able to purchase my seller's home at a very reasonable price within just a few weeks. Jared was able to close on her house within 2 weeks without any issues.</blockquote>
       <figcaption>Jim Fish, real estate agent</figcaption></figure>
-    <figure class="quote" style="--c:var(--orange);--cs:var(--orange-soft)">
-      <blockquote>As a licensed Residential Contractor, he ensures that no corners are cut in his remodels.
-        Jared's dedication to his craft is truly admirable and it shows in the quality of his
-        work.</blockquote>
+    <figure class="quote" style="--c:var(--orange)">
+      <blockquote>As a licensed Residential Contractor, he ensures that no corners are cut in his remodels. Jared's dedication to his craft is truly admirable and it shows in the quality of his work.</blockquote>
       <figcaption>Nikki Segraves, Realtor</figcaption></figure>
-    <figure class="quote" style="--c:var(--emerald);--cs:var(--emerald-soft)">
-      <blockquote>We needed to sell our condo quickly due to health reasons and JNL Solutions came through
-        for us. Thanks to each of you for all your efforts and the above and beyond assistance you provided
-        to us.</blockquote>
+    <figure class="quote" style="--c:var(--emerald)">
+      <blockquote>We needed to sell our condo quickly due to health reasons and JNL Solutions came through for us. Thanks to each of you for all your efforts and the above and beyond assistance you provided to us.</blockquote>
       <figcaption>Donna Harty</figcaption></figure>
-    <figure class="quote" style="--c:var(--electric);--cs:var(--electric-soft)">
-      <blockquote>He caters each deal to meet the seller's unique needs, whether it be someone who inherited
-        a dated property from a loved one, or a seller who can no longer maintain the property.</blockquote>
+    <figure class="quote" style="--c:var(--electric)">
+      <blockquote>He caters each deal to meet the seller's unique needs, whether it be someone who inherited a dated property from a loved one, or a seller who can no longer maintain the property.</blockquote>
       <figcaption>Madison Mitchell</figcaption></figure>
-    <figure class="quote" style="--c:var(--sky);--cs:var(--sky-soft)">
-      <blockquote>For an investor, he is straightforward and doesn't hide any punches. He's honest and will
-        let you know exactly what his goals are and what he needs.</blockquote>
+    <figure class="quote" style="--c:var(--sky)">
+      <blockquote>For an investor, he is straightforward and doesn't hide any punches. He's honest and will let you know exactly what his goals are and what he needs.</blockquote>
       <figcaption>Tim Whittemore</figcaption></figure>
+    <figure class="quote" style="--c:var(--violet)">
+      <blockquote>Working with Jared and his associates at JNL Solutions was the best real estate experience we have had in 30+ years. They were straightforward, honest, and professional, a unique experience in today's world. Highly recommended!</blockquote>
+      <figcaption>Anthony Avallone</figcaption></figure>
+    <figure class="quote" style="--c:var(--coral)">
+      <blockquote>I was in a position where I needed to sell my house. My son reached out to Jared Larimer. He came and looked at the house and made us an offer. It was a very simple process. Jared even helped me find another house to move into.</blockquote>
+      <figcaption>Matthew Matuzek</figcaption></figure>
+    <figure class="quote" style="--c:var(--emerald)">
+      <blockquote>Ive bought and sold many homes in the past, this was an absolute seamless transaction. Jerad was professional, offered a great price and closed quickly on my grandmothers home. All of the worries and issues we thought would happen, didn't.</blockquote>
+      <figcaption>Kara Keenan</figcaption></figure>
+    <figure class="quote" style="--c:var(--orange)">
+      <blockquote>These guys came out and bought a nuisance house in my neighborhood. Jared showed up and cleared them out, demoed the house, and cleaned up the lot. Thank you for helping make our neighborhood safer.</blockquote>
+      <figcaption>Bryan Hays</figcaption></figure>
+    <figure class="quote" style="--c:var(--electric)">
+      <blockquote>Heather and Jared accommodated our times not theirs. It was a pleasure to work with them, answered all our questions and more, very informative.</blockquote>
+      <figcaption>John Wilson</figcaption></figure>
+    <figure class="quote" style="--c:var(--sky)">
+      <blockquote>Jared bought my house and was very helpful every step of the way and he was easy to talk to. He listened to all my questions and concerns, I encourage anyone to work with him.</blockquote>
+      <figcaption>James</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--violet)">
+      <blockquote>JNL Solutions went above and beyond to close my mother's house in one month. Jared was accommodating and sensitive to my situation of selling my childhood home after my mother's passing.</blockquote>
+      <figcaption>Melanie Miller Palmer</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--coral)">
+      <blockquote>I had a seller that was in a must sell situation and could not afford to fix her house up in order to sell. I contacted Jared at JNL Solutions and he was able to purchase my seller's home at a very reasonable price within just a few weeks. Jared was able to close on her house within 2 weeks without any issues.</blockquote>
+      <figcaption>Jim Fish, real estate agent</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--orange)">
+      <blockquote>As a licensed Residential Contractor, he ensures that no corners are cut in his remodels. Jared's dedication to his craft is truly admirable and it shows in the quality of his work.</blockquote>
+      <figcaption>Nikki Segraves, Realtor</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--emerald)">
+      <blockquote>We needed to sell our condo quickly due to health reasons and JNL Solutions came through for us. Thanks to each of you for all your efforts and the above and beyond assistance you provided to us.</blockquote>
+      <figcaption>Donna Harty</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--electric)">
+      <blockquote>He caters each deal to meet the seller's unique needs, whether it be someone who inherited a dated property from a loved one, or a seller who can no longer maintain the property.</blockquote>
+      <figcaption>Madison Mitchell</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--sky)">
+      <blockquote>For an investor, he is straightforward and doesn't hide any punches. He's honest and will let you know exactly what his goals are and what he needs.</blockquote>
+      <figcaption>Tim Whittemore</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--violet)">
+      <blockquote>Working with Jared and his associates at JNL Solutions was the best real estate experience we have had in 30+ years. They were straightforward, honest, and professional, a unique experience in today's world. Highly recommended!</blockquote>
+      <figcaption>Anthony Avallone</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--coral)">
+      <blockquote>I was in a position where I needed to sell my house. My son reached out to Jared Larimer. He came and looked at the house and made us an offer. It was a very simple process. Jared even helped me find another house to move into.</blockquote>
+      <figcaption>Matthew Matuzek</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--emerald)">
+      <blockquote>Ive bought and sold many homes in the past, this was an absolute seamless transaction. Jerad was professional, offered a great price and closed quickly on my grandmothers home. All of the worries and issues we thought would happen, didn't.</blockquote>
+      <figcaption>Kara Keenan</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--orange)">
+      <blockquote>These guys came out and bought a nuisance house in my neighborhood. Jared showed up and cleared them out, demoed the house, and cleaned up the lot. Thank you for helping make our neighborhood safer.</blockquote>
+      <figcaption>Bryan Hays</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--electric)">
+      <blockquote>Heather and Jared accommodated our times not theirs. It was a pleasure to work with them, answered all our questions and more, very informative.</blockquote>
+      <figcaption>John Wilson</figcaption></figure>
+    <figure class="quote" aria-hidden="true" style="--c:var(--sky)">
+      <blockquote>Jared bought my house and was very helpful every step of the way and he was easy to talk to. He listened to all my questions and concerns, I encourage anyone to work with him.</blockquote>
+      <figcaption>James</figcaption></figure>
+    </div>
   </div>
+  <p class="marquee-hint">Hover to hold one still, or drag to move through them. All of these are public on <a id="gmbLink2" href="#" target="_blank" rel="noopener">JNL's Google listing</a>.</p>
 </div></section>
 
 <section class="on-tint"><div class="wrap">
@@ -906,6 +980,8 @@ function renderRating(r){
   if(st) st.textContent=stars;
   var a=document.getElementById("gmbLink");
   if(a && r.url) a.setAttribute("href", r.url);
+  var a2=document.getElementById("gmbLink2");
+  if(a2 && r.url) a2.setAttribute("href", r.url);
   if(a) a.setAttribute("aria-label",
     Number(r.rating).toFixed(1)+" out of 5 from "+r.count+" reviews on Google, opens the listing");
 }
@@ -1733,6 +1809,30 @@ window.funnelQuiz = {
   /* jump past the remaining questions straight to the result and contact fields */
   showOutcome: function(){ if(S&&S.primary){ S.phase="outcome"; render(true); } }
 };
+
+/* Drag to move through the reviews. The marquee is a real scroll container,
+   so this only has to translate a pointer drag into scrollLeft and hold the
+   animation while the seller is actually dragging. Click-throughs on the
+   card links still work because we only suppress them once the pointer has
+   genuinely moved. */
+(function(){
+  var m=document.getElementById("marquee");
+  if(!m) return;
+  var down=false, startX=0, startLeft=0, moved=false;
+  m.addEventListener("pointerdown",function(e){
+    down=true; moved=false; startX=e.clientX; startLeft=m.scrollLeft;
+    m.classList.add("dragging");
+  });
+  m.addEventListener("pointermove",function(e){
+    if(!down) return;
+    var dx=e.clientX-startX;
+    if(Math.abs(dx)>3){ moved=true; m.scrollLeft=startLeft-dx; }
+  });
+  ["pointerup","pointercancel","pointerleave"].forEach(function(ev){
+    m.addEventListener(ev,function(){ down=false; m.classList.remove("dragging"); });
+  });
+  m.addEventListener("click",function(e){ if(moved){ e.preventDefault(); e.stopPropagation(); } },true);
+})();
 
 applyConfig();
 renderRating(RATING);
