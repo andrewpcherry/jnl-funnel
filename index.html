@@ -61,7 +61,7 @@ html,body{overflow-x:hidden;max-width:100%}
 body{margin:0;background:var(--paper);color:var(--ink);line-height:1.55;font-size:17px;
   font-family:"Open Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   -webkit-font-smoothing:antialiased}
-@media(max-width:780px){body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}}
+@media(max-width:780px){body{padding-bottom:calc(84px + env(safe-area-inset-bottom))}}
 h1,h2,h3,h4,h5{margin:0;font-family:"Oswald","Open Sans",sans-serif;font-weight:600;
   text-wrap:balance;line-height:1.06}
 p{margin:0}
@@ -327,8 +327,9 @@ textarea.in{resize:vertical}
 .consent input{margin-top:3px;width:22px;height:22px;accent-color:var(--act);flex:0 0 auto}
 .form .btn-g,.form .btn-act{width:100%;margin-top:24px;font-size:21px;padding:18px 32px}
 .fineprint{margin-top:18px;font-size:15px;color:var(--ink-soft);text-align:center}
-.err{margin-top:20px;background:var(--coral-soft);border:2.5px solid var(--coral);
-  border-radius:var(--r-sm);padding:16px 19px;font-size:16.5px;font-weight:700;color:#B3122E}
+.err{margin-top:18px;background:var(--act-soft);border:1px solid var(--act);
+  border-radius:8px;padding:15px 18px;font-size:16px;font-weight:500;color:#8E0A22;line-height:1.6}
+.err a{color:#8E0A22;font-weight:700}
 
 .done{text-align:center;padding:26px 0 10px}
 .done .tick{width:74px;height:74px;border-radius:50%;background:var(--night);color:#fff;
@@ -467,108 +468,6 @@ footer a{color:#AFC4D6}
 @media(max-width:780px){.callbar{display:flex}}
 .callbar .btn{flex:1;font-size:17px;padding:16px 14px}
 
-/* ---------- voice assistant ---------- */
-.va-launch{position:fixed;right:22px;bottom:24px;z-index:60;display:flex;align-items:center;gap:12px;
-  background:var(--ink);color:#fff;border:0;cursor:pointer;font-family:"Open Sans",sans-serif;
-  font-weight:800;font-size:16px;padding:14px 22px 14px 16px;border-radius:999px;
-  box-shadow:0 12px 30px -6px rgba(16,27,45,.5);transition:transform .16s,box-shadow .16s}
-.va-launch:hover{transform:translateY(-3px);box-shadow:0 18px 38px -8px rgba(16,27,45,.55)}
-.va-launch .ring{position:relative;width:38px;height:38px;border-radius:50%;background:var(--act);
-  display:flex;align-items:center;justify-content:center;flex:0 0 auto}
-.va-launch .ring::after{content:"";position:absolute;inset:0;border-radius:50%;
-  border:2px solid var(--act);animation:vapulse 2.4s ease-out infinite}
-@keyframes vapulse{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.85);opacity:0}}
-.va-launch svg{width:19px;height:19px;fill:#fff}
-@media(max-width:780px){.va-launch{bottom:calc(104px + env(safe-area-inset-bottom));right:16px;
-  padding:12px 18px 12px 13px;font-size:15px}}
-.va-launch[hidden]{display:none}
-
-.va-panel{position:fixed;right:22px;bottom:24px;z-index:61;width:min(400px,calc(100vw - 32px));
-  background:#fff;border-radius:26px;box-shadow:0 30px 80px -14px rgba(16,27,45,.5);
-  overflow:hidden;display:flex;flex-direction:column;max-height:min(660px,calc(100vh - 48px));
-  animation:vain .3s cubic-bezier(.2,.8,.3,1) both}
-@keyframes vain{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
-@media(max-width:780px){
-  .va-panel{bottom:calc(104px + env(safe-area-inset-bottom));right:16px;
-    left:16px;width:auto;max-height:calc(100dvh - 150px)}
-  .va-head{padding:16px}
-  .va-head .orb{width:38px;height:38px}
-  .va-icon{width:44px;height:44px}
-  .multi-bar .count{font-size:15px}
-}
-.va-panel[hidden]{display:none}
-
-.va-head{background:var(--ink);color:#fff;padding:18px 20px;display:flex;align-items:center;gap:13px}
-.va-head>div{min-width:0;flex:1}   /* without this the brand name cannot shrink and shoves the buttons out */
-.va-head .orb{width:44px;height:44px;border-radius:50%;flex:0 0 auto;position:relative;
-  background:radial-gradient(circle at 35% 30%,#5BF0BC,var(--act) 72%);
-  transition:transform .18s}
-.va-head .orb.speak{animation:vaorb 1.05s ease-in-out infinite}
-.va-head .orb.listen{animation:vaorb .62s ease-in-out infinite}
-@keyframes vaorb{0%,100%{transform:scale(1)}50%{transform:scale(1.16)}}
-.va-head .nm{font-family:"Oswald","Open Sans",sans-serif;font-weight:800;font-size:17px;letter-spacing:-.02em;
-  line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.va-head .st{font-size:12.5px;color:#9DB0C7;font-weight:600;margin-top:2px}
-.va-head .sp{margin-left:auto;display:flex;gap:6px}
-.va-icon{background:rgba(255,255,255,.13);border:0;color:#fff;width:40px;height:40px;border-radius:50%;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;
-  font-family:"Open Sans",sans-serif;transition:background .15s}
-.va-icon:hover{background:rgba(255,255,255,.24)}
-
-.va-body{padding:20px;overflow-y:auto;flex:1;background:var(--tint);display:flex;
-  flex-direction:column;gap:12px;min-height:190px}
-.va-msg{max-width:88%;padding:13px 16px;border-radius:18px;font-size:15.5px;line-height:1.45;
-  animation:vain .26s ease both}
-.va-msg.bot{background:#fff;border:2px solid var(--line);border-bottom-left-radius:6px;
-  align-self:flex-start;color:var(--ink)}
-.va-msg.me{background:var(--ink);color:#fff;border-bottom-right-radius:6px;align-self:flex-end;
-  font-weight:600}
-.va-typing{display:flex;gap:5px;align-self:flex-start;background:#fff;border:2px solid var(--line);
-  padding:15px 17px;border-radius:18px;border-bottom-left-radius:6px}
-.va-typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-soft);
-  animation:vadot 1.3s infinite}
-.va-typing i:nth-child(2){animation-delay:.18s}
-.va-typing i:nth-child(3){animation-delay:.36s}
-@keyframes vadot{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
-
-.va-foot{padding:14px 16px 16px;background:#fff;border-top:2px solid var(--line)}
-.va-chips{display:flex;flex-wrap:wrap;gap:8px}
-/* Tap rows in the final form, so nothing there is a dropdown.
-   Same visual language as .opt and .va-chip. */
-.pickrow{margin-top:18px}
-.picks{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
-.pk{background:var(--tint);border:2.5px solid transparent;border-radius:999px;
-  padding:12px 20px;cursor:pointer;font-family:"Open Sans",sans-serif;font-size:16px;
-  font-weight:650;color:var(--ink);transition:border-color .15s,background .15s,transform .12s}
-.pk:hover{border-color:var(--act);background:var(--act-soft);transform:translateY(-1px)}
-.pk.sel{background:var(--act);border-color:var(--act);color:#fff}
-.pk:focus-visible{outline:3px solid var(--act);outline-offset:2px}
-.ziphint{font-size:14px;color:var(--ink-soft);margin-top:8px;min-height:1px}
-@media(max-width:520px){.pk{padding:12px 16px;font-size:15px}}
-.va-chip{background:var(--tint);border:2px solid var(--line);border-radius:999px;padding:10px 16px;
-  font-family:"Open Sans",sans-serif;font-size:14.5px;font-weight:700;color:var(--ink);cursor:pointer;
-  transition:border-color .14s,background .14s,transform .12s}
-.va-chip:hover{border-color:var(--act);background:var(--act-soft);transform:translateY(-2px)}
-.va-chip.go{background:var(--act);border-color:var(--act);color:#fff}
-.va-form{display:grid;gap:10px;width:100%}
-.va-input{width:100%;border:2.5px solid var(--line);border-radius:12px;padding:13px 15px;
-  font-family:"Open Sans",sans-serif;font-size:17px;color:var(--ink);background:#fff}
-.va-input:focus{outline:none;border-color:var(--act);box-shadow:0 0 0 3px var(--act-soft)}
-.va-chip.sel{background:var(--ink);border-color:var(--ink);color:#fff}
-.va-mic{display:flex;align-items:center;gap:10px;margin-top:11px;font-size:12.5px;color:var(--ink-soft);
-  font-weight:600}
-.va-mic button{background:var(--tint);border:2px solid var(--line);border-radius:999px;width:40px;
-  height:40px;cursor:pointer;font-size:16px;flex:0 0 auto;transition:all .14s}
-.va-mic button:hover{border-color:var(--act);background:var(--act-soft)}
-.va-mic button.on{background:var(--coral);border-color:var(--coral);color:#fff;
-  animation:vaorb .8s ease-in-out infinite}
-.va-note{padding:9px 14px;background:var(--tint-2);font-size:11.5px;color:var(--ink-soft);
-  font-weight:600;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.va-voicewrap{display:flex;align-items:center;gap:6px;font-size:11.5px}
-.va-voicewrap select{font-family:"Open Sans",sans-serif;font-size:16px;font-weight:700;
-  border:1.5px solid var(--line-2);border-radius:8px;padding:5px 7px;background:#fff;
-  color:var(--ink);max-width:150px}   /* 16px minimum, below that iOS zooms the page on focus */
-@media(prefers-reduced-motion:reduce){.va-launch .ring::after,.va-head .orb,.va-typing i{animation:none}}
 
 /* ============================================================
    TYPOGRAPHY CORRECTION FOR OSWALD
@@ -589,7 +488,7 @@ footer a{color:#AFC4D6}
 h1,h2,h3,h4,h5,
 .brand,.hero h1,.sec-h,.q-h,.oc-h,.card h4,.way h4,.step h4,.sit h4,
 .route h4,.trust b,.guide h3,.gcover h4,.form h4,.done h3,.final h2,
-.shell-top .t,.va-head .nm,summary{letter-spacing:.002em}
+.shell-top .t,summary{letter-spacing:.002em}
 
 /* Oswald's caps are tall and its lowercase is short, so the all-caps
    eyebrow and the button labels need a touch more room than Figtree did. */
@@ -873,29 +772,7 @@ h1,h2,h3,h4,h5,
 </div></footer>
 
 
-<button class="va-launch" id="vaLaunch" aria-label="Talk to us">
-  <span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V22h2v-3.08A7 7 0 0 0 19 12z"/></svg></span>
-  <span>Talk to us</span>
-</button>
 
-<div class="va-panel" id="vaPanel" hidden role="dialog" aria-label="Talk to us">
-  <div class="va-head">
-    <span class="orb" id="vaOrb"></span>
-    <div>
-      <div class="nm" data-cfg="company">JNL Solutions</div>
-      <div class="st" id="vaStatus">Answers day or night</div>
-    </div>
-    <div class="sp">
-      <button class="va-icon" id="vaClose" title="Close" aria-label="Close">&times;</button>
-    </div>
-  </div>
-  <div class="va-body" id="vaBody" aria-live="polite"></div>
-  <div class="va-foot"><div class="va-chips" id="vaChips"></div>
-  </div>
-  <div class="va-note">
-    <span>Demo assistant, speaks out loud.</span>
-  </div>
-</div>
 
 <div class="callbar">
   <a class="btn btn-line" data-cfg-href="phoneHref" href="tel:+18506967981">Call</a>
@@ -1617,24 +1494,120 @@ function submitLead(){
     /* Consent is recorded with its timestamp and the page it was given on,
        which the A2P record requires. */
     consent:{given:true, at:new Date().toISOString(), page:location.href},
-    /* Its own source value so this channel stays separate from the form on
-       the main site in whatever reporting JNL ends up using. */
     leadSource:"Website Funnel",
-    /* leadTier also goes out as a TAG as well as a field. The destination
-       CRM's own status picklist is unknown until the webhook is wired, and
-       tags are free-form almost everywhere, so the tier survives either way. */
-    tags:["Website Funnel","Tier "+t.t],
     summary:leadSummary(t),
     notes:m.extra?val(m.extra.name):"",
     submittedAt:new Date().toISOString(),
     utm:utm()
   };
-  /* ---- WIRE THIS UP -----------------------------------------
-     POST `lead` to the CRM webhook, then keep the success screen.
-     Front end only right now, nothing is being sent anywhere.
-  ------------------------------------------------------------ */
   if(window.console) console.info("[lead payload]", lead);
-  S.phase="done"; render(true);
+  sendLead(lead, t);
+}
+
+/* ---------------------------------------------------------------
+   EMAIL DELIVERY
+
+   No CRM, no AI receptionist, no GoHighLevel: the lead goes straight
+   to JNL's inbox. This is a static page, so it posts to FormSubmit's
+   AJAX endpoint, which forwards it as email.
+
+   Verified from formsubmit.co's own documentation on 2026-09-10:
+   POST https://formsubmit.co/ajax/<address>, JSON in and JSON out,
+   Content-Type and Accept both application/json, no account needed,
+   unlimited submissions, submissions retained 30 days. The underscore
+   fields used below (_subject, _template, _replyto, _cc, _captcha)
+   are all documented there.
+
+   _captcha is off because there is nowhere to show a reCAPTCHA
+   challenge in an AJAX post. FormSubmit recommend leaving it on, so
+   if JNL ever start getting spam through this, the fix is either the
+   _honey honeypot field or moving to a real backend.
+
+   ACTIVATION, AND THIS IS THE BIT THAT SILENTLY DOES NOT WORK:
+   FormSubmit emails the recipient a confirmation link on the FIRST
+   submission and delivers nothing until somebody clicks it. Send one
+   test through this form and have whoever owns the inbox confirm it
+   BEFORE any ad traffic arrives.
+
+   ONCE CONFIRMED: FormSubmit issues a random string that can replace
+   the address in the URL, so the inbox is not sitting in the page
+   source for scrapers. Swap LEAD.email for it when it arrives.
+--------------------------------------------------------------- */
+var LEAD = {
+  /* UNCONFIRMED. This is the address JNL themselves nominated for the
+     signed proposal (Cassie, per the Brain campaign log), NOT a
+     published lead address, because they do not publish one. Andrew
+     to confirm where Jared actually wants leads landing. */
+  email:  "info.jnlsolutions@gmail.com",
+  /* Copy to Andrew so delivery is verifiable and nothing is lost in
+     the gap between a click and JNL picking it up. */
+  cc:     "andrew@requityai.com",
+  endpoint: function(){ return "https://formsubmit.co/ajax/"+encodeURIComponent(this.email); }
+};
+
+/* FormSubmit emails whatever keys it is given, in order, so the payload
+   is flattened into the order Jared would want to read it in: who and
+   how to reach them first, then the property, then everything they
+   said. Nested objects would arrive as [object Object]. */
+function leadEmailFields(lead, t){
+  var c=lead.contact, f={};
+  f["Lead tier"]        = t.t+"  ("+t.why+")";
+  f["Name"]             = c.fullName;
+  f["Phone"]            = c.phone || "not given";
+  f["Email"]            = c.email || "not given";
+  f["Best time to call"]= c.bestTime || "not stated";
+  f["Call or text"]     = c.contactPreference || "not stated";
+  f["Property"]         = [c.address,c.city,c.state,c.zip].filter(Boolean).join(", ");
+  f["Property type"]    = c.propertyType || "not stated";
+  f["Price expectation"]= c.priceExpectation || "not stated";
+  f["Situation"]        = lead.situations.map(function(k){return BRANCHES[k].label;}).join(" + ");
+  f["Most pressing"]    = BRANCHES[lead.primarySituation].label;
+  if(lead.combinations.length) f["What the combination changes"]=lead.combinations.join("  |  ");
+  if(lead.notes) f["Their own notes"]=lead.notes;
+  f["Summary"]          = lead.summary;
+  /* Every question and answer, so nothing they told us is lost. */
+  lead.answers.forEach(function(h,i){
+    f[("0"+(i+1)).slice(-2)+". "+h.q] = h.a;
+  });
+  f["Consent given"]    = lead.consent.at;
+  f["Submitted from"]   = lead.consent.page;
+  Object.keys(lead.utm).forEach(function(k){ f["utm: "+k]=lead.utm[k]; });
+
+  f._subject  = "Tier "+t.t+" lead, "+(c.city||"Panhandle")+", "
+              + lead.situations.map(function(k){return BRANCHES[k].tag;}).join(" + ")
+              + " — "+c.fullName;
+  f._template = "table";
+  f._captcha  = "false";
+  if(c.email) f._replyto = c.email;   /* so Reply goes to the seller */
+  if(LEAD.cc) f._cc = LEAD.cc;
+  return f;
+}
+
+function sendLead(lead, t){
+  var btn=document.querySelector(".form .btn-g, .form .btn-act"),
+      errBox=document.getElementById("formErr"),
+      original=btn?btn.textContent:"";
+  if(btn){ btn.disabled=true; btn.textContent="Sending..."; }
+  if(errBox) errBox.innerHTML="";
+
+  fetch(LEAD.endpoint(), {
+    method:"POST",
+    headers:{"Content-Type":"application/json","Accept":"application/json"},
+    body:JSON.stringify(leadEmailFields(lead,t))
+  })
+  .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+  .then(function(){ S.phase="done"; render(true); })
+  .catch(function(err){
+    if(window.console) console.error("[lead send failed]", err);
+    if(btn){ btn.disabled=false; btn.textContent=original; }
+    /* Never swallow this. A seller who has answered fourteen questions
+       and hit send must not be told it worked when it did not, so they
+       get the phone number rather than a dead end. */
+    if(errBox) errBox.innerHTML='<div class="err">That did not go through, and we would rather '
+      +'tell you than leave you waiting on a call that is not coming. Please ring us on '
+      +'<a href="'+CONFIG.phoneHref+'">'+CONFIG.phone+'</a> and we will take it down over the phone. '
+      +'Nothing you typed has been lost, so you can also just press send again.</div>';
+  });
 }
 
 function getGuide(e){ e.preventDefault(); alert("Placeholder. Point this at the guide PDF before launch."); return false; }
@@ -1660,8 +1633,10 @@ function applyConfig(){
   document.title = CONFIG.company;
 }
 
-/* The assistant hands the seller's answers back into this quiz. Exported
-   explicitly rather than relying on these being implicit globals. */
+/* Kept as an explicit export rather than implicit globals: it is the seam
+   anything external would drive the quiz through. The demo assistant that
+   used to use it has been removed, on Andrew's instruction, along with the
+   GoHighLevel and AI-receptionist plumbing. Leads go straight to email. */
 window.funnelQuiz = {
   start:       start,
   toggleSit:   toggleSit,
@@ -1669,8 +1644,7 @@ window.funnelQuiz = {
   answer:      answer,
   queue:       queue,
   state:       function(){ return S; },
-  /* jump past the remaining questions to the result and the contact fields,
-     used when the assistant has already asked enough to be useful */
+  /* jump past the remaining questions straight to the result and contact fields */
   showOutcome: function(){ if(S&&S.primary){ S.phase="outcome"; render(true); } }
 };
 
@@ -1678,278 +1652,5 @@ applyConfig();
 start();
 </script>
 
-<script>
-/* ============================================================
-   VOICE ASSISTANT (demo)
-
-   Scripted, on purpose. No API key and no network call, so it
-   works offline and cannot fail in front of a prospect. It
-   speaks with the browser's own speech engine and listens with
-   the Web Speech API where the browser supports it, falling
-   back to tap answers everywhere else.
-
-   It runs the same qualification the page's quiz runs, then
-   hands the seller into the form rather than pretending to
-   book anything itself.
-   ============================================================ */
-(function(){
-  var launch=document.getElementById("vaLaunch"), panel=document.getElementById("vaPanel"),
-      body=document.getElementById("vaBody"), chips=document.getElementById("vaChips"),
-      orb=document.getElementById("vaOrb"), status=document.getElementById("vaStatus"),
-      micRow=null;
-  if(!launch||!panel) return;
-
-  var voiceOn=true, started=false, ended=false, answers={}, voice=null, rec=null, listening=false;
-
-  
-
-  /* Voice output is off: the assistant is text only, which is the state
-     this has been tested in. Kept as a passthrough so every existing call
-     site still works if speech is ever switched back on. */
-  function say(text,done){ if(done) done(); }
-
-  /* ---- transcript ---- */
-  function bubble(text,who){
-    var d=document.createElement("div");
-    d.className="va-msg "+who; d.textContent=text;
-    body.appendChild(d); body.scrollTop=body.scrollHeight;
-  }
-  function typing(on){
-    var t=document.getElementById("vaTyping");
-    if(on&&!t){
-      t=document.createElement("div"); t.className="va-typing"; t.id="vaTyping";
-      t.innerHTML="<i></i><i></i><i></i>";
-      body.appendChild(t); body.scrollTop=body.scrollHeight;
-    } else if(!on&&t){ t.remove(); }
-  }
-  function bot(text,then){
-    typing(true);
-    setTimeout(function(){
-      typing(false); bubble(text,"bot");
-      say(text, then||null);
-      if(!voiceOn&&then) then();
-    }, Math.min(1100, 340+text.length*7));
-  }
-  function setChips(list){
-    chips.innerHTML="";
-    list.forEach(function(c){
-      var b=document.createElement("button");
-      b.className="va-chip"+(c.go?" go":""); b.type="button"; b.textContent=c.t;
-      b.onclick=function(){ if(c.act){ bubble(c.t,"me"); setChips([]); c.act(); } else { choose(c); } };
-      chips.appendChild(b);
-    });
-    /* mic row removed with the voice layer */
-  }
-
-  /* ---- the script ---- */
-  var SITUATIONS=[
-    {t:"I inherited it", k:"inherited", ack:"Sorry to hear that, and thank you for telling me."},
-    {t:"I'm behind on payments", k:"deadline", ack:"Right, that changes what we should be looking at, and it changes how fast."},
-    {t:"It needs a lot of work", k:"condition", ack:"That is very common, and it is not the problem people think it is."},
-    {t:"It's a rental", k:"rental", ack:"Understood. You do not have to get the tenant out for this to work."},
-    {t:"I need to move by a date", k:"moving", ack:"Got it. A fixed date narrows things down usefully."},
-    {t:"I'm just looking at options", k:"comparing", ack:"No problem at all, nothing wrong with working it out first."}
-  ];
-  var TIMELINES=[
-    {t:"As soon as possible", k:"asap"},
-    {t:"Within a month", k:"asap"},
-    {t:"Two or three months", k:"mid"},
-    {t:"No particular rush", k:"slow"}
-  ];
-  var EQUITY=[
-    {t:"It's paid off", k:"free"},
-    {t:"I owe less than half", k:"low"},
-    {t:"I owe about half", k:"half"},
-    {t:"I owe close to what it's worth", k:"thin"},
-    {t:"I owe more than it's worth", k:"under"},
-    {t:"I'm not sure", k:"unknown"}
-  ];
-
-  var STEP=0;
-
-  function choose(c){
-    bubble(c.t,"me");
-    if(STEP===1){ answers.situation=c.k; answers.situationLabel=c.t; askTimeline(c.ack); }
-    else if(STEP===2){ answers.timeline=c.k; askEquity(); }
-    else if(STEP===3){ answers.equity=c.k; recommend(); }
-    else if(STEP===4){ closeOut(c.k); }
-  }
-
-  function askSituation(){
-    STEP=1;
-    setChips(SITUATIONS.map(function(x){return {t:x.t,k:x.k,ack:x.ack};}));
-  }
-  function askTimeline(ack){
-    STEP=2; setChips([]);
-    bot(ack+" How soon are you hoping to have this sorted?", function(){
-      setChips(TIMELINES);
-    });
-  }
-  function askEquity(){
-    STEP=3; setChips([]);
-    bot("And is there still a mortgage on the property?", function(){
-      setChips(EQUITY);
-    });
-  }
-
-    function recommend(){
-    STEP=4; setChips([]);
-    /* No structure is named to the seller. The team works out the right one
-       from the answers and brings real numbers to the call. */
-    bot("Thanks, that gives us what we need to look at it properly. Someone from the team " +
-        "can go through the property and come back to you with real numbers. " +
-        "Would you like a call back?",
-      function(){
-        setChips([{t:"Yes please",k:"yes",go:true},{t:"Not yet, send the guide",k:"guide"}]);
-      });
-  }
-
-  /* Carry what the seller already told the assistant into the page's own quiz,
-     so it never asks the same three questions twice. */
-  var TIMELINE_MAP={asap:"As soon as possible", mid:"Thirty to ninety days", slow:"More than 90 days"};
-  var EQUITY_MAP={free:"It is paid off, no mortgage", low:"I owe less than half of what it is worth",
-    half:"I owe about half", thin:"I owe close to what it is worth",
-    under:"I owe more than it is worth", unknown:"I am not sure"};
-
-  function seed(Q,id,value){
-    if(!value) return false;
-    var qq=Q.queue();
-    for(var i=0;i<qq.length;i++){
-      if(qq[i].q.id===id && qq[i].q.opts.indexOf(value)>=0){ Q.answer(id,value,qq[i].q.q); return true; }
-    }
-    return false;
-  }
-
-  /* drop what the assistant already collected into the form so the seller
-     is not made to type their number a second time */
-  function prefill(){
-    var map={phone:answers.phone, bestTime:answers.bestTime, contactPref:answers.contactPref};
-    Object.keys(map).forEach(function(id){
-      var el=document.getElementById(id);
-      if(el && map[id]) el.value=map[id];
-    });
-  }
-
-  function handoff(){
-    close();
-    var carried=0, Q=window.funnelQuiz;
-    try{
-      if(Q && answers.situation){
-        Q.start();
-        Q.toggleSit(answers.situation);
-        Q.confirmSits();
-        carried++;                                                  /* the situation */
-        if(seed(Q,"timeline", TIMELINE_MAP[answers.timeline])) carried++;
-        if(seed(Q,"equity",   EQUITY_MAP[answers.equity]))     carried++;
-        if(Q.showOutcome) Q.showOutcome();   /* skip the rest, go to the contact fields */
-        prefill();
-      }
-    }catch(e){
-      if(window.console) console.warn("[assistant] handoff failed, seller starts the quiz fresh:", e);
-    }
-    var q=document.getElementById("quiz");
-    if(q) q.scrollIntoView({behavior:"smooth",block:"start"});
-    ended=true;
-    return carried;
-  }
-
-  function askCallback(){
-    bot("Of course. What is the best number for one of our representatives to call you back on today, and is there a particular time that would suit you?",
-      callbackForm);
-  }
-
-  function callbackForm(){
-    chips.innerHTML="";
-    var wrap=document.createElement("div"); wrap.className="va-form";
-    var inp=document.createElement("input");
-    inp.className="va-input"; inp.type="tel"; inp.placeholder="Your best number";
-    inp.setAttribute("aria-label","Your best number"); inp.setAttribute("autocomplete","tel");
-    wrap.appendChild(inp);
-
-    var chosen="Any time today";
-    var row=document.createElement("div"); row.className="va-chips";
-    ["Any time today","Morning","Afternoon","Evening"].forEach(function(t){
-      var b=document.createElement("button"); b.type="button";
-      b.className="va-chip"+(t===chosen?" sel":""); b.textContent=t;
-      b.onclick=function(){
-        chosen=t;
-        for(var i=0;i<row.children.length;i++) row.children[i].className="va-chip";
-        b.className="va-chip sel";
-      };
-      row.appendChild(b);
-    });
-    wrap.appendChild(row);
-
-    var go=document.createElement("button"); go.type="button";
-    go.className="va-chip go"; go.textContent="That is my number";
-    go.onclick=function(){
-      var v=(inp.value||"").trim();
-      if(v.replace(/\D/g,"").length<7){
-        inp.style.borderColor="var(--coral)";
-        inp.placeholder="A number we can actually reach you on";
-        return;
-      }
-      answers.phone=v; answers.bestTime=chosen;
-      bubble(v+", "+chosen.toLowerCase(),"me");
-      chips.innerHTML="";
-      askPref();
-    };
-    wrap.appendChild(go);
-    chips.appendChild(wrap);
-  }
-
-  function askPref(){
-    bot("Thank you. And would you rather we called you first, or sent you a text first?", function(){
-      setChips([
-        {t:"A call is fine", act:function(){ answers.contactPref="A call is fine"; wrapUp(); }},
-        {t:"Text me first",  act:function(){ answers.contactPref="Text me first";  wrapUp(); }},
-        {t:"Either is fine", act:function(){ answers.contactPref="Either is fine"; wrapUp(); }}
-      ]);
-    });
-  }
-
-  function wrapUp(){
-    bot("Perfect. I will carry all of that across so nobody asks you the same thing twice, and take you straight to the last few details.",
-      function(){ setChips([{t:"Carry on",go:true,act:handoff}]); });
-  }
-
-  function closeOut(k){
-    setChips([]);
-    if(k==="yes"){
-      askCallback();
-    } else {
-      bot("No problem. The guide walks through the numbers, and it is yours either way. Nobody will chase you.",
-        function(){
-          setChips([
-            {t:"Send me the guide",go:true,act:function(){ ended=true; close(); if(window.getGuide) window.getGuide({preventDefault:function(){}}); }},
-            {t:"Thanks, that's all",act:function(){ ended=true; bot("Take care. We are here whenever you want to pick it back up."); }}
-          ]);
-        });
-    }
-  }
-
-  /* Speech input removed 2026-09-03: the brief excludes Voice AI. */
-
-  /* ---- open / close ---- */
-  function open(){
-    panel.hidden=false; launch.hidden=true;
-    /* reopening after it finished used to show a dead transcript with no buttons */
-    if(ended){ ended=false; started=false; STEP=0; answers={}; body.innerHTML=""; setChips([]); }
-    if(!started){
-      started=true;
-      var name=(window.CONFIG&&window.CONFIG.company)||"JNL Solutions";
-      bot("Hi, you are through to "+name+". I can help you work out which ways of selling actually fit your property, and it takes about a minute. Can I ask what is going on with the house?",
-        askSituation);
-    }
-  }
-  function close(){
-    panel.hidden=true; launch.hidden=false;
-    orb.classList.remove("speak","listen");
-  }
-  launch.onclick=open;
-  document.getElementById("vaClose").onclick=close;
-  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&!panel.hidden) close(); });
-})();
-</script>
 </body>
 </html>

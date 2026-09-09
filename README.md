@@ -68,12 +68,51 @@ used on the navy footer.
    reflected back and given a call, never a menu of structures.
 5. **A reviews section was added**, which the source funnel does not have,
    because JNL has a lot of strong named ones.
+6. **The demo voice assistant is gone**, on Andrew's instruction, along with
+   all CRM plumbing.
+7. **The design was rebuilt against their actual site**, not just their colour
+   values: their own photograph of Jared in the hero, their own renovated
+   Panhandle ranch further down, Oswald at weight 600 with normal tracking,
+   flat pill buttons at weight 500 with no shadow, and situation cards reduced
+   to a 4px colour edge instead of six saturated pastel fields.
+
+## Lead delivery: straight to email
+
+No CRM, no AI receptionist, no GoHighLevel. On Andrew's instruction the lead
+goes straight to JNL's inbox.
+
+This is a static page, so `sendLead()` posts JSON to FormSubmit's AJAX
+endpoint, which forwards it as email. Verified from formsubmit.co's own docs
+on 2026-09-10: `POST https://formsubmit.co/ajax/<address>`, JSON in and out,
+no account needed, unlimited submissions, 30-day archive. The payload is
+flattened into reading order (tier, name, phone, property, situation, then
+every question and answer) because nested objects arrive as `[object Object]`.
+Reply-To is set to the seller, so Jared can just hit reply.
+
+**Activation, and this is the bit that silently does not work:** FormSubmit
+emails the recipient a confirmation link on the *first* submission and
+delivers nothing until somebody clicks it. Send one test through the form and
+have whoever owns the inbox confirm it **before any ad traffic arrives**.
+
+**Recipient is unconfirmed.** `LEAD.email` is currently
+`info.jnlsolutions@gmail.com`, the address JNL nominated for the signed
+proposal, because they publish no lead address. Andrew to confirm where Jared
+actually wants leads landing. `LEAD.cc` copies `andrew@requityai.com` so
+delivery is verifiable.
+
+**Once confirmed,** FormSubmit issues a random string that replaces the naked
+address in the URL, so the inbox is not sitting in the page source for
+scrapers. Swap `LEAD.email` for it when it arrives.
+
+**reCAPTCHA is off** (`_captcha:"false"`) because there is nowhere to show a
+challenge in an AJAX post. If spam starts arriving, the fix is the `_honey`
+honeypot field or a real backend.
+
+A failed send is never swallowed: the seller is told plainly and given the
+phone number, rather than shown a success screen for a call that is not coming.
 
 ## Not wired yet, on purpose
 
-- **`submitLead()` posts nowhere.** It validates, builds the `lead` payload
-  and logs it to the console. Point it at the CRM webhook before this takes
-  paid traffic. JNL's destination CRM is unconfirmed.
 - **`getGuide()` is a placeholder alert.** A JNL seller guide exists (see
   the Brain campaign log) but its hosted URL is not settled.
 - **No public email address is printed.** JNL do not publish one on their
