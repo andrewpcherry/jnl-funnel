@@ -375,6 +375,46 @@ textarea.in{resize:vertical}
   border-radius:8px;padding:15px 18px;font-size:16px;font-weight:500;color:#8E0A22;line-height:1.6}
 .err a{color:#8E0A22;font-weight:700}
 
+/* ---------- the final form's tap rows ----------
+   These rules used to live inside the voice-assistant stylesheet block and
+   were deleted with it on 2026-09-10 (commit 8f14a29), which left the best
+   time and call-or-text choices rendering as the browser's own grey buttons.
+   Now they live with the form they belong to.
+
+   Each choice has its own colour and icon. Unselected carries a faint wash of
+   its colour; selected fills with a DEEPENED version (68% colour, 32% black),
+   because white text on the bright emerald, aqua or orange alone falls well
+   short of readable contrast. */
+.pickrow{margin-top:20px}
+.picks{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.pk{display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  background:#fff;background:color-mix(in srgb,var(--pc,var(--night)) 8%,#fff);
+  border:2px solid var(--line-2);border-color:color-mix(in srgb,var(--pc,var(--night)) 32%,#fff);
+  border-radius:30px;padding:7px 18px 7px 7px;
+  font-family:"Open Sans",sans-serif;font-size:15.5px;font-weight:600;color:var(--ink);
+  transition:background .15s,border-color .15s,color .15s,box-shadow .15s}
+.pk .pki{width:32px;height:32px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;
+  justify-content:center;background:var(--pc,var(--night));color:#fff;transition:background .15s}
+.pk .pki svg{width:17px;height:17px;display:block}
+.pk:hover{border-color:var(--pc,var(--night));background:color-mix(in srgb,var(--pc,var(--night)) 15%,#fff)}
+.pk.sel{background:var(--pc,var(--night));background:color-mix(in srgb,var(--pc,var(--night)) 68%,#000);
+  border-color:var(--pc,var(--night));border-color:color-mix(in srgb,var(--pc,var(--night)) 68%,#000);
+  color:#fff;box-shadow:0 8px 18px -8px var(--pc,var(--night))}
+.pk.sel .pki{background:rgba(255,255,255,.2)}
+.pk.sel::after{content:"\2713";font-weight:700;margin-left:1px}
+.pk:focus-visible{outline:3px solid var(--pc,var(--act));outline-offset:2px}
+.ziphint{font-size:14px;color:var(--ink-soft);margin-top:8px;min-height:1px}
+@media(max-width:520px){.pk{font-size:15px;padding:6px 15px 6px 6px}.pk .pki{width:30px;height:30px}}
+@media(max-width:780px){.multi-bar .count{font-size:15px}}
+
+/* "What happens next" on the outcome screen had no styles on this page, so
+   it rendered as a tiny bold heading and a run-on line above the form. */
+.nextup{margin-top:22px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--act);
+  border-radius:10px;padding:18px 22px}
+.nextup h5{margin:0;font-family:"Open Sans",sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--act)}
+.nextup p{margin-top:8px;font-size:16.5px;color:var(--ink-2);line-height:1.6;max-width:66ch}
+
 .done{text-align:center;padding:26px 0 10px}
 .done .tick{width:74px;height:74px;border-radius:50%;background:var(--night);color:#fff;
   display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:600;margin:0 auto}
@@ -1654,20 +1694,51 @@ function doneHtml(){
 
 /* A tap row instead of a dropdown. Same feel as the rest of the funnel:
    you click, it selects, you move on. The value is read back by val(). */
+/* A tap row instead of a dropdown. Every choice has its own colour and icon
+   (feather-style strokes, drawn inline so there is no icon library to load).
+   The value lives in data-v rather than being read off the label, because the
+   button now holds an icon as well as its text. */
+var PICK_ICON={
+  clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+  sunrise:'<path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="2" x2="12" y2="9"/><line x1="4.2" y1="10.2" x2="5.6" y2="11.6"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.4" y1="11.6" x2="19.8" y2="10.2"/><line x1="23" y1="22" x2="1" y2="22"/><polyline points="8 6 12 2 16 6"/>',
+  sun:'<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/>',
+  moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',
+  phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/>',
+  chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  smile:'<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>'
+};
+var PICK_META={
+  "Any time":       {c:"var(--night)",   i:"clock"},
+  "Morning":        {c:"var(--sky)",     i:"sunrise"},
+  "Afternoon":      {c:"var(--orange)",  i:"sun"},
+  "Evening":        {c:"var(--violet)",  i:"moon"},
+  "A call is fine": {c:"var(--emerald)", i:"phone"},
+  "Text me first":  {c:"var(--electric)",i:"chat"},
+  "Either is fine": {c:"var(--violet)",  i:"smile"}
+};
 function pick(label,name,opts,def){
-  var h='<div class="pickrow"><label class="fl">'+esc(label)+'</label><div class="picks" id="'+name+'-picks">';
+  var h='<div class="pickrow"><label class="fl">'+esc(label)+'</label>'
+    +'<div class="picks" id="'+name+'-picks" role="radiogroup" aria-label="'+esc(label)+'">';
   opts.forEach(function(o){
-    h+='<button type="button" class="pk'+(o===def?' sel':'')+'" data-for="'+name+'" '
-      +'onclick="pickSet(this)">'+esc(o)+'</button>';
+    var m=PICK_META[o]||{c:"var(--night)",i:"clock"}, on=(o===def);
+    h+='<button type="button" class="pk'+(on?' sel':'')+'" role="radio" aria-checked="'+on+'" '
+      +'style="--pc:'+m.c+'" data-for="'+name+'" data-v="'+esc(o)+'" onclick="pickSet(this)">'
+      +'<span class="pki" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+      +'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+PICK_ICON[m.i]+'</svg></span>'
+      +'<span>'+esc(o)+'</span></button>';
   });
   return h+'</div><input type="hidden" id="'+name+'" value="'+esc(def||"")+'"></div>';
 }
 function pickSet(btn){
   var name=btn.getAttribute("data-for");
   var row=document.getElementById(name+"-picks");
-  for(var i=0;i<row.children.length;i++) row.children[i].className="pk";
-  btn.className="pk sel";
-  document.getElementById(name).value=btn.textContent;
+  for(var i=0;i<row.children.length;i++){
+    row.children[i].classList.remove("sel");
+    row.children[i].setAttribute("aria-checked","false");
+  }
+  btn.classList.add("sel");
+  btn.setAttribute("aria-checked","true");
+  document.getElementById(name).value=btn.getAttribute("data-v");
 }
 
 /* ZIP is numeric so the phone shows a number pad, and it fills the state for
