@@ -432,13 +432,15 @@ tr:last-child td,tr:last-child th{border-bottom:0}
 .guide p{margin-top:18px;color:#C2D5E5;font-size:17px;max-width:50ch;font-weight:400;line-height:1.62}
 .guide ul{margin:22px 0 0;padding-left:22px;color:#C2D5E5;font-size:16px;font-weight:400;line-height:1.7}
 .guide li{margin-bottom:11px}
-.gcover{background:#fff;border-radius:var(--r);padding:38px 32px;color:var(--ink)}
-.gcover .k{font-size:12px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:var(--act)}
-.gcover h4{margin-top:14px;font-family:"Oswald","Open Sans",sans-serif;font-size:27px;font-weight:600;
-  line-height:1.12}
-.gcover .sw{display:flex;gap:8px;margin-top:24px}
-.gcover .sw i{height:10px;flex:1;border-radius:999px}
-.gcover p{margin-top:20px;font-size:16px;color:var(--ink-soft);font-weight:450}
+/* The real cover, tilted slightly so it reads as a thing you get, and
+   straightening on hover. Replaces a CSS mock-up of a book that also named
+   deal structures JNL has never approved. */
+.gcover-img{display:block;max-width:330px;width:100%;margin:0 auto;transform:rotate(2.5deg);
+  transition:transform .3s ease}
+.gcover-img:hover{transform:rotate(0) translateY(-4px)}
+.gcover-img img{display:block;width:100%;height:auto;border-radius:6px;
+  box-shadow:0 28px 60px -14px rgba(0,0,0,.6)}
+.guide .gsize{margin-top:12px;font-size:13.5px;color:#9FB8CC}
 
 /* ---------- showcase: their own property photograph ---------- */
 .showcase{display:grid;gap:34px;align-items:center}
@@ -868,27 +870,23 @@ header.scrolled .blogo{height:54px}
   <div class="guide">
     <div>
       <span class="eyebrow dark">Free, read it before you talk to anyone</span>
-      <h3>The seller's guide, from JNL Solutions</h3>
-      <p>What your house is actually worth to you once the costs are taken out, written for people in a
-        situation rather than people browsing.</p>
+      <h3>The Complete Guide to Selling Your Florida Panhandle House Fast</h3>
+      <p>Jared's own guide, the Emerald Coast and Florida Panhandle edition. Sell on your timeline, avoid
+        costly repairs, and see whether a cash offer is your smartest next move.</p>
       <ul>
-        <li>The net proceeds worksheet, so you can compare offers on the same basis</li>
-        <li>What selling costs actually come out of the price, and which ones are negotiable</li>
-        <li>What a lender's repair list does to a sale, and when it kills one</li>
-        <li>What a tenant in place changes about who will buy it</li>
-        <li>Where the foreclosure timeline still gives you room</li>
+        <li>The three main ways to sell a house fast</li>
+        <li>How investor cash offers really work</li>
+        <li>How to compare price, speed, repairs, and certainty</li>
+        <li>When selling as is can be the smarter move</li>
+        <li>Questions to ask before you sign anything</li>
       </ul>
-      <a class="btn btn-act" style="margin-top:32px" href="#" onclick="return getGuide(event)">Download The Guide</a>
+      <a class="btn btn-act" style="margin-top:30px" data-cfg-href="guideUrl"
+        href="jnl-solutions-complete-guide.pdf" target="_blank" rel="noopener">Download The Guide</a>
+      <p class="gsize">PDF, 54 pages, 3 MB</p>
     </div>
-    <div class="gcover">
-      <div class="k">Homeowner guide</div>
-      <h4>Cash, terms, take-over, or list?</h4>
-      <div class="sw">
-        <i style="background:var(--emerald)"></i><i style="background:var(--electric)"></i>
-        <i style="background:var(--amber)"></i><i style="background:var(--sky)"></i>
-      </div>
-      <p>Work out your own numbers before anybody quotes you one.</p>
-    </div>
+    <a class="gcover-img" data-cfg-href="guideUrl" href="jnl-solutions-complete-guide.pdf" target="_blank" rel="noopener">
+      <img src="img/guide-cover.jpg" width="760" height="1139" loading="lazy"
+        alt="Cover of The Complete Guide to Selling Your Florida Panhandle House Fast, by Jared Larimer of JNL Solutions"></a>
   </div>
 </div></section>
 
@@ -1033,7 +1031,11 @@ var CONFIG = {
      the consent block without Jared approving the new wording. */
   helpPhone:"850-696-7981",
   legalTerms:"https://jnlsolutionsibuyhouses.com/terms-and-conditions/",
-  legalPrivacy:"https://jnlsolutionsibuyhouses.com/privacy-policy/"
+  legalPrivacy:"https://jnlsolutionsibuyhouses.com/privacy-policy/",
+  /* Jared's own guide, 54 pages, the same file JNL's Lovable funnel serves at
+     options.jnlsolutionsibuyhouses.com (byte-identical, checked 2026-09-11).
+     Served from this repo so it survives whatever happens to that subdomain. */
+  guideUrl:"jnl-solutions-complete-guide.pdf"
 };
 
 /* ---------------------------------------------------------------
@@ -1533,7 +1535,7 @@ function outcomeHtml(){
       +'<ul class="oc-points" style="--c:var(--ink-soft)">';
     r.points.forEach(function(p){h+='<li><b>&rsaquo;</b><span>'+esc(p)+'</span></li>';});
     h+='</ul><div class="ro-actions">'
-      +'<a class="btn btn-g" href="#" onclick="return getGuide(event)">Download The Guide</a>'
+      +'<a class="btn btn-g" href="'+CONFIG.guideUrl+'" target="_blank" rel="noopener">Download The Guide</a>'
       +'<button class="btn btn-line" onclick="start()">Start over</button></div>'
       +'<div class="nav"><button class="back" onclick="back()">Back</button><div class="trail">&nbsp;</div></div></div>';
     return h;
@@ -1586,9 +1588,9 @@ function outcomeHtml(){
       +'figure on it. That one number moves this list around more than anything else you have told us.</div>';
   }
 
-  h+='<div class="form"><h4>'+(isGuide?"Where should we send the guide?":"Where should we send the numbers?")+'</h4>'
+  h+='<div class="form"><h4>'+(isGuide?"Get the guide":"Where should we send the numbers?")+'</h4>'
     +'<p class="fh">'+(isGuide
-      ? "The guide comes straight through. Nobody calls you unless you ask us to."
+      ? "The guide opens the moment you press the button, and your answers go to JNL so you never have to repeat them."
       : "A real person calls you back, usually the same day, and goes through the property and what it would actually pay you. If you would rather we text first, say so in the notes.")+'</p>'
     +'<div class="grid2">'
     +fld("First name","firstName","text","given-name")+fld("Last name","lastName","text","family-name")
@@ -1619,7 +1621,7 @@ function outcomeHtml(){
     +'<a href="'+CONFIG.legalTerms+'" target="_blank" rel="noopener">Terms and Conditions</a>. '
     +'Consent is not a condition of purchase.</span></label>'
     +'<div id="formErr"></div>'
-    +'<button class="btn btn-g" onclick="submitLead()">'+(isGuide?"Send Me The Guide":"Send This And Call Me Back")+'</button>'
+    +'<button class="btn btn-g" onclick="submitLead()">'+(isGuide?"Get The Guide":"Send This And Call Me Back")+'</button>'
     +'<div class="fineprint">No obligation. Not a listing agreement. Not a commitment to sell.</div></div>'
     +'<div class="nav"><button class="back" onclick="back()">Back</button><div class="trail">&nbsp;</div></div></div>';
   return h;
@@ -1627,13 +1629,16 @@ function outcomeHtml(){
 
 function doneHtml(){
   var isGuide=has("comparing");
+  var g='<a class="btn '+(isGuide?'btn-act':'btn-line')+'" href="'+CONFIG.guideUrl+'" target="_blank" rel="noopener">'
+       +(isGuide?'Open The Guide':'Read The Guide While You Wait')+'</a>';
   return '<div class="fade done"><div class="tick">&check;</div>'
-    +'<h3>'+(isGuide?"The guide is on its way.":"That is everything we need.")+'</h3>'
+    +'<h3>'+(isGuide?"Your guide is ready.":"That is everything we need.")+'</h3>'
     +'<p>'+(isGuide
-      ? "Check your email in the next few minutes. Nobody is going to call you about it. When you do want somebody to put numbers against the house, come back and start again."
-      : "Somebody will call you back, usually the same day and always within one business day. We will go through the property and what it would actually pay you, with no pressure to decide anything on the call.")+'</p>'
+      ? "Open it below, it is yours to keep. When you want somebody to put a real number on the house itself, come back and start again, or call "+CONFIG.phone+"."
+      : "Somebody from JNL will come back to you promptly and go through the property and what it would actually pay you, with no pressure to decide anything on the call.")+'</p>'
+    +(isGuide?g:'')
     +'<p style="font-size:13.5px;margin-top:18px">Nothing you have done here commits you to selling.</p>'
-    +'<a class="btn btn-line" href="#" onclick="return getGuide(event)">Download The Guide While You Wait</a></div>';
+    +(isGuide?'':g)+'</div>';
 }
 
 /* A tap row instead of a dropdown. Same feel as the rest of the funnel:
@@ -1889,7 +1894,7 @@ function sendLead(lead, t){
   });
 }
 
-function getGuide(e){ e.preventDefault(); alert("Placeholder. Point this at the guide PDF before launch."); return false; }
+
 
 function utm(){
   var o={},p=new URLSearchParams(window.location.search);
