@@ -76,6 +76,18 @@ used on the navy footer.
    flat pill buttons at weight 500 with no shadow, and situation cards reduced
    to a 4px colour edge instead of six saturated pastel fields.
 
+## Local photographs
+
+The "Where we buy" tiles and the two dark bands (reviews, final call to action)
+use eight photographs from Wikimedia Commons, licence and author read off the
+Commons API on 2026-09-11. They are CC BY 2.0, CC BY-SA 3.0 and CC BY-SA 4.0,
+all of which require attribution, so each is credited and linked in the page
+footer. Cropped and tinted, which is why the footer says so. Files are in
+`img/local/`.
+
+If Jared supplies his own property photographs, they replace the town tiles
+directly and the matching credit lines come out of the footer.
+
 ## Lead delivery: straight to email
 
 No CRM, no AI receptionist, no GoHighLevel. On Andrew's instruction the lead
