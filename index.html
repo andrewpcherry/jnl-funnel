@@ -813,7 +813,7 @@ header.scrolled .blogo{height:54px}
       <p>About two minutes. No account, no credit check, nothing pulled on your property.</p></div>
     <div class="step" style="--c:var(--orange);--cs:var(--orange-soft)"><div class="n">2</div>
       <h4>We call you back</h4>
-      <p>A real person, usually the same day. We go through the property with you and what it would actually pay you.</p></div>
+      <p>A real person from JNL, promptly. We go through the property with you and what it would actually pay you.</p></div>
     <div class="step" style="--c:var(--electric);--cs:var(--electric-soft)"><div class="n">3</div>
       <h4>One walkthrough</h4>
       <p>Twenty minutes, in person or on video. No cleaning, no staging, no strangers through the house.</p></div>
@@ -1305,15 +1305,15 @@ var ROUTES = {
   /* LIVE for JNL: this operator buys the Florida Panhandle only. */
   outofarea:{flag:"Outside where we buy",
     title:"That property is outside where we buy.",
-    copy:"We buy in the Florida Panhandle, so we would rather say so now than take your details and never call. The guide works in any market, so take it with you. Everything in it about comparing offers on the same basis holds wherever the house is.",
-    points:["The guide works in any market, take it with you","We would rather tell you now than waste your week","Your information does not go on a list"]},
+    copy:"We buy in the Florida Panhandle, so we would rather say so now than take your details and never call. Take the guide anyway if it helps: it is written for the Panhandle, but the questions to ask before you sign anything apply wherever the house is.",
+    points:["The questions in the guide apply anywhere, take it with you","We would rather tell you now than waste your week","Your information does not go on a list"]},
   listed:{flag:"Come back to us",
     title:"While you are under a listing agreement, we stay out of it.",
     copy:"You have an agent working for you, and we are not going to step into that. Let them do the job you hired them for. If the listing expires, or you and your agent part ways, come straight back and we will run through the options then. Take the guide in the meantime, it is yours either way.",
     points:["Your agreement comes first, we will not interfere","Come back the day it expires and we will look","Take the guide so you can judge any offer you get"]},
   contract:{flag:"You're already sold",
     title:"You are under contract, so there is nothing for us to do.",
-    copy:"Congratulations, genuinely. If that contract falls apart, which happens more often than anybody admits when a lender is involved, come back and we will look at it the same day. Until then there is no reason for us to be in your inbox.",
+    copy:"Congratulations, genuinely. If that contract falls apart, which happens more often than anybody admits when a lender is involved, come back and we will look at it promptly. Until then there is no reason for us to be in your inbox.",
     points:["If it falls through, come back and we will move fast","No follow-up from us while your contract is live","Take the guide in case you need a plan B"]}
 };
 
@@ -1591,7 +1591,7 @@ function outcomeHtml(){
   h+='<div class="form"><h4>'+(isGuide?"Get the guide":"Where should we send the numbers?")+'</h4>'
     +'<p class="fh">'+(isGuide
       ? "The guide opens the moment you press the button, and your answers go to JNL so you never have to repeat them."
-      : "A real person calls you back, usually the same day, and goes through the property and what it would actually pay you. If you would rather we text first, say so in the notes.")+'</p>'
+      : "A real person from JNL comes back to you promptly and goes through the property and what it would actually pay you. If you would rather we text first, say so in the notes.")+'</p>'
     +'<div class="grid2">'
     +fld("First name","firstName","text","given-name")+fld("Last name","lastName","text","family-name")
     +fld("Phone","phone","tel","tel")+fld("Email","email","email","email")
