@@ -222,11 +222,16 @@ section{padding:64px 0}
 /* option buttons */
 .opts{display:grid;gap:13px;margin-top:32px}
 @media(min-width:780px){.opts.two{grid-template-columns:1fr 1fr}}
+/* Answer rows take a faint wash of whichever situation the seller picked as
+   most pressing (the shell sets --accent), so the questions stay in the colour
+   of the problem they are answering rather than glaring white. */
 .opt{display:flex;align-items:center;gap:15px;width:100%;text-align:left;cursor:pointer;
-  background:#fff;border:1px solid var(--line);border-radius:8px;padding:17px 20px;
+  background:#F6F8FB;background:color-mix(in srgb,var(--accent,var(--night)) 6%,#fff);
+  border:1px solid var(--line);border-radius:8px;padding:17px 20px;
   font-family:"Open Sans",sans-serif;font-size:16.5px;font-weight:500;color:var(--ink);
   transition:border-color .15s,background .15s}
-.opt:hover{border-color:var(--night);background:var(--tint)}
+.opt:hover{border-color:var(--night);background:#EEF3F8;
+  background:color-mix(in srgb,var(--accent,var(--night)) 12%,#fff)}
 .opt .dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--line-2);flex:0 0 auto;
   background:#fff;transition:border-color .15s,background .15s}
 .opt:hover .dot{border-color:var(--act);background:var(--act);box-shadow:inset 0 0 0 3px #fff}
@@ -242,11 +247,17 @@ section{padding:64px 0}
    colour follows the seller into the question header and the outcome flag.
    It is now a 4px edge and a small tag rather than the whole card, and the
    selected state is a navy card with a red tick, not a block of colour. */
+/* Softened 2026-09-11 at Andrew's ask: pure white read as glaring. Each card
+   now carries a faint wash of its own situation colour, the same colour as its
+   left edge, at 7%. The flat #F6F8FB line is the fallback for any browser
+   without color-mix. */
 .card{position:relative;text-align:left;cursor:pointer;font-family:"Open Sans",sans-serif;
-  background:#fff;border:1px solid var(--line);border-left:4px solid var(--c);
+  background:#F6F8FB;background:color-mix(in srgb,var(--c) 7%,#fff);
+  border:1px solid var(--line);border-left:4px solid var(--c);
   border-radius:10px;padding:24px 26px 22px;color:var(--ink);
   transition:border-color .16s,background .16s,box-shadow .16s}
-.card:hover{background:var(--tint);box-shadow:0 2px 10px rgba(11,33,53,.07)}
+.card:hover{background:#EEF3F8;background:color-mix(in srgb,var(--c) 12%,#fff);
+  box-shadow:0 2px 10px rgba(11,33,53,.07)}
 .card .tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.09em;
   text-transform:uppercase;color:var(--c)}
 .card h4{margin-top:9px;font-family:"Oswald","Open Sans",sans-serif;font-size:23px;font-weight:600;
