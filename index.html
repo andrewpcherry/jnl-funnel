@@ -92,7 +92,10 @@ header.scrolled .wrap{padding-top:9px;padding-bottom:9px}
 .hdr-phone{color:#fff;font-weight:700;font-size:18px;text-decoration:none;white-space:nowrap}
 .hdr-phone small{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;
   text-transform:uppercase;color:#A9C2D6}
-@media(max-width:660px){.hdr-cta{display:none}}
+/* header-qualified on purpose: .btn is declared later with equal specificity
+   and was overriding a bare .hdr-cta, so the button never hid on phones and
+   doubled up with the sticky call bar. */
+@media(max-width:660px){header .hdr-cta{display:none}}
 @media(max-width:430px){.hdr-phone{font-size:15px}.hdr-right{gap:10px}.wrap{padding:0 16px}}
 /* the header is fixed, so anything the page scrolls to has to clear it */
 #quiz,.shell,section[id]{scroll-margin-top:84px}
