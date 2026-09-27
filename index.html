@@ -1905,9 +1905,8 @@ var LEAD = {
      published lead address, because they do not publish one. Andrew
      to confirm where Jared actually wants leads landing. */
   email:  "info.jnlsolutions@gmail.com",
-  /* Copy to Andrew so delivery is verifiable and nothing is lost in
-     the gap between a click and JNL picking it up. */
-  cc:     "andrew@requityai.com",
+  /* Send J.Paul the required second copy; retain Andrew's delivery-verification copy. */
+  cc:     "jpaul@7kidsandflipping.com,andrew@requityai.com",
   endpoint: function(){ return "https://formsubmit.co/ajax/"+encodeURIComponent(this.email); }
 };
 
