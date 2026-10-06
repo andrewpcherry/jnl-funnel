@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- OpenAI Ads: one pixel for the client-owned go-domain account. -->
+<script>
+(function(w,d,s,u){
+  if(w.oaiq) return;
+  var q=function(){q.q.push(arguments);}; q.q=[]; w.oaiq=q;
+  var js=d.createElement(s); js.async=true; js.src=u;
+  var first=d.getElementsByTagName(s)[0]; first.parentNode.insertBefore(js,first);
+})(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+try {
+  if(navigator.globalPrivacyControl===true) oaiq("consent",false);
+  oaiq("init",{pixelId:"FPDGjoM9NNahqAdBx3PsRb"});
+  oaiq("measure","page_viewed",{type:"contents"},{opt_out:true});
+} catch(e) { /* Measurement must never prevent use of the funnel. */ }
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JNL Solutions</title>
 <meta name="description" content="Behind on payments, inherited a house, or sitting on a property that needs more work than you want to take on? Answer a few questions and JNL Solutions will come back to you with a real number on the property and what is actually open to you. Fort Walton Beach, Crestview, Destin, Navarre and Pensacola.">
@@ -1866,7 +1881,6 @@ function submitLead(){
     submittedAt:new Date().toISOString(),
     utm:utm()
   };
-  if(window.console) console.info("[lead payload]", lead);
   sendLead(lead, t);
 }
 
@@ -1948,6 +1962,42 @@ function leadEmailFields(lead, t){
   return f;
 }
 
+/* Only an accepted FormSubmit response counts as a lead. No property,
+   situation, financial circumstances, names or raw contact data go to Ads. */
+function trackAcceptedLead(lead){
+  try {
+    if(lead.adsMeasured || navigator.globalPrivacyControl===true) return;
+    lead.adsMeasured=true;
+    var eventId=(window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID() : "jnl-"+Date.now()+"-"+Math.random().toString(36).slice(2);
+    var report=function(user){
+      try {
+        if(typeof window.oaiq!=="function") return;
+        if(user && Object.keys(user).length) oaiq("init",{user:user});
+        oaiq("measure","lead_created",{type:"customer_action"},
+          {event_id:eventId,opt_out:true});
+      } catch(e) { /* A tracking failure must not affect lead delivery. */ }
+    };
+    var c=lead.contact||{}, fields=[];
+    if(c.email) fields.push(["email_sha256",c.email.trim().toLowerCase()]);
+    var phone=String(c.phone||"").replace(/[\s().+-]/g,"").replace(/^0+/,"");
+    if(phone.length===10) phone="1"+phone;
+    if(/^\d{8,15}$/.test(phone)) fields.push(["phone_number_sha256",phone]);
+    if(!window.crypto || !crypto.subtle || !window.TextEncoder) { report(); return; }
+    Promise.all(fields.map(function(field){
+      return crypto.subtle.digest("SHA-256",new TextEncoder().encode(field[1]))
+        .then(function(bytes){
+          var hash=Array.from(new Uint8Array(bytes)).map(function(b){
+            return b.toString(16).padStart(2,"0");
+          }).join("");
+          return [field[0],hash];
+        });
+    })).then(function(pairs){
+      var user={}; pairs.forEach(function(pair){user[pair[0]]=pair[1];}); report(user);
+    }).catch(function(){report();});
+  } catch(e) { /* Reporting is best-effort; the accepted form stays successful. */ }
+}
+
 function sendLead(lead, t){
   var btn=document.querySelector(".form .btn-g, .form .btn-act"),
       errBox=document.getElementById("formErr"),
@@ -1961,7 +2011,13 @@ function sendLead(lead, t){
     body:JSON.stringify(leadEmailFields(lead,t))
   })
   .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
-  .then(function(){ S.phase="done"; render(true); })
+  .then(function(result){
+    if(!result || (result.success!==true && result.success!=="true")) {
+      throw new Error("FormSubmit did not accept the lead");
+    }
+    trackAcceptedLead(lead);
+    S.phase="done"; render(true);
+  })
   .catch(function(err){
     if(window.console) console.error("[lead send failed]", err);
     if(btn){ btn.disabled=false; btn.textContent=original; }
