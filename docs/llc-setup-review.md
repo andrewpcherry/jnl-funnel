@@ -1,6 +1,6 @@
 # JNL Solutions LLC setup review, October 7, 2026
 
-Status: review-only, not deployed. Built on PR #1 head 020dd8ba56c260077b5ec1b86aaf5bdb1383f4ee. Original local checkout was clean. No WordPress changes.
+Status: prepared for the publishing Andrew authorized later on October 7; deployment and live verification still pending. Built on PR #1 head 020dd8ba56c260077b5ec1b86aaf5bdb1383f4ee. Original local checkout was clean. No WordPress changes. Historical gate notes below are superseded by the update at the end.
 
 ## Prepared website changes
 
@@ -56,3 +56,11 @@ Parent LeadGen_Panhandle remains paused. Preserve its $50/day USD clicks objecti
 5. Read back approved live changes, keeping campaign paused. Industry restriction and destination review remain unresolved; this is not an approval or a workaround.
 
 Before deploying, review privacy, security, consent and data-handling requirements. Existing privacy policy must remain consistent with final pixel configuration. Account setup alone does not prove live measurement, inbox delivery, ad eligibility or serving.
+
+## Update: October 7 source established and publishing authorized
+
+Andrew approved accepting the LLC Conversion Terms; source creation and mapping were read back in authenticated Ads Manager and the connector. LLC source cds_6ac643be3b3c81a39529e9b375bcb3d7, pixel TF5hrkeZEnA5w8R2Jn4Nkr, event setting 6ac644000e2c81a38076ccd0e44480b1: Lead Generated / lead_created, 30-day click and 1-day view windows. No campaign attachment yet.
+
+Source sharing was not established. Prepared the documented multiple-pixel integration instead: one SDK, initialize each verified pixel once, page_viewed and one accepted-lead measure call to both sources. Late hashed user updates specify each intended pixel. Existing source preserved, no duplicate measure call within either source. Privacy policy now explains the two sources. Expanded mock tests passed both mappings, one SDK, and all prior failure/privacy/deduplication cases. No new conversion boundaries or CAPI.
+
+Andrew explicitly authorized publishing the reviewed funnel, changing only the three v2 links, and one labelled enquiry to existing recipients. He also requested activation, superseding the earlier paused-only instruction; an exact $50/day USD/$2 maximum CPC/clicks/unchanged-targeting/no-end-date confirmation was requested before activation. Keep paused until that confirmation and the dependent checks are complete. No paid attribution or eligibility outcome is established by this update.

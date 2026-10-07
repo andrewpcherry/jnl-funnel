@@ -16,6 +16,7 @@ async function run(response, gpc = false, trackingThrows = false) {
     }}, navigator:{globalPrivacyControl:gpc}, crypto, TextEncoder, Uint8Array,
     Promise, Date, Math, console:{error(){}},
     document:{querySelector:()=>button, getElementById:()=>error},
+    ADS_PIXEL_IDS:['FPDGjoM9NNahqAdBx3PsRb','TF5hrkeZEnA5w8R2Jn4Nkr'],
     LEAD:{endpoint:()=> 'https://example.invalid'}, leadEmailFields:()=>({}),
     fetch:async()=>response, S:state, render:()=>{}, CONFIG:{phoneHref:'tel:123', phone:'123'}
   };
@@ -33,6 +34,9 @@ async function run(response, gpc = false, trackingThrows = false) {
     assert.equal(result.calls.filter(c=>c[1]==='lead_created').length, 1);
     assert.equal(result.calls[0][1].user.email_sha256.length, 64);
     assert.equal(result.calls[0][1].user.phone_number_sha256.length, 64);
+    assert.equal(result.calls.filter(c=>c[0]==='init').length, 2);
+    assert.equal(result.calls[0][1].pixelId,'FPDGjoM9NNahqAdBx3PsRb');
+    assert.equal(result.calls[1][1].pixelId,'TF5hrkeZEnA5w8R2Jn4Nkr');
     assert(!JSON.stringify(result.calls).includes('TEST@'));
     result.ctx.trackAcceptedLead(result.lead);
     await new Promise(resolve=>setTimeout(resolve, 10));
@@ -56,5 +60,6 @@ async function run(response, gpc = false, trackingThrows = false) {
   assert.equal(result.state.phase,'done');
   assert(html.includes('email:  "info.jnlsolutions@gmail.com"'));
   assert(html.includes('cc:     "jpaul@7kidsandflipping.com,andrew@requityai.com"'));
+  assert.equal((html.match(/https:\/\/bzrcdn.openai.com\/sdk\/oaiq.min.js/g)||[]).length,1);
   console.log('PASS: script syntax; accepted responses; rejected/invalid responses; HTTP failure; deduplication; hashed matching; GPC; tracking failure isolation; recipient configuration. No network calls or emails sent.');
 })().catch(error=>{console.error(error);process.exit(1);});

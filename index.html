@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<!-- OpenAI Ads: one pixel for the client-owned go-domain account. -->
+<!-- OpenAI Ads: one SDK; preserve the existing source and add the verified LLC source. -->
 <script>
 (function(w,d,s,u){
   if(w.oaiq) return;
@@ -10,9 +10,10 @@
   var js=d.createElement(s); js.async=true; js.src=u;
   var first=d.getElementsByTagName(s)[0]; first.parentNode.insertBefore(js,first);
 })(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+var ADS_PIXEL_IDS=["FPDGjoM9NNahqAdBx3PsRb","TF5hrkeZEnA5w8R2Jn4Nkr"];
 try {
   if(navigator.globalPrivacyControl===true) oaiq("consent",false);
-  oaiq("init",{pixelId:"FPDGjoM9NNahqAdBx3PsRb"});
+  ADS_PIXEL_IDS.forEach(function(pixelId){ oaiq("init",{pixelId:pixelId}); });
   oaiq("measure","page_viewed",{type:"contents"},{opt_out:true});
 } catch(e) { /* Measurement must never prevent use of the funnel. */ }
 </script>
@@ -1915,7 +1916,9 @@ function trackAcceptedLead(lead){
     var report=function(user){
       try {
         if(typeof window.oaiq!=="function") return;
-        if(user && Object.keys(user).length) oaiq("init",{user:user});
+        if(user && Object.keys(user).length) ADS_PIXEL_IDS.forEach(function(pixelId){
+          oaiq("init",{pixelId:pixelId,user:user});
+        });
         oaiq("measure","lead_created",{type:"customer_action"},
           {event_id:eventId,opt_out:true});
       } catch(e) { /* A tracking failure must not affect lead delivery. */ }
