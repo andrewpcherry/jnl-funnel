@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<!-- OpenAI Ads: one pixel for the client-owned go-domain account. -->
+<!-- OpenAI Ads: one SDK; preserve the existing source and add the verified LLC source. -->
 <script>
 (function(w,d,s,u){
   if(w.oaiq) return;
@@ -10,9 +10,10 @@
   var js=d.createElement(s); js.async=true; js.src=u;
   var first=d.getElementsByTagName(s)[0]; first.parentNode.insertBefore(js,first);
 })(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+var ADS_PIXEL_IDS=["FPDGjoM9NNahqAdBx3PsRb","TF5hrkeZEnA5w8R2Jn4Nkr"];
 try {
   if(navigator.globalPrivacyControl===true) oaiq("consent",false);
-  oaiq("init",{pixelId:"FPDGjoM9NNahqAdBx3PsRb"});
+  ADS_PIXEL_IDS.forEach(function(pixelId){ oaiq("init",{pixelId:pixelId}); });
   oaiq("measure","page_viewed",{type:"contents"},{opt_out:true});
 } catch(e) { /* Measurement must never prevent use of the funnel. */ }
 </script>
@@ -704,10 +705,6 @@ header.scrolled .blogo{height:54px}
 <div class="hero">
   <div class="wrap">
     <span class="eyebrow">Fort Walton Beach &middot; Crestview &middot; Destin &middot; Navarre &middot; Pensacola</span><br>
-    <a class="hero-rate" id="heroRate" href="#" target="_blank" rel="noopener">
-      <span class="g" aria-hidden="true">G</span><b id="heroRateN">5.0</b>
-      <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <span><span id="heroRateC">31</span> Google reviews</span></a>
     <h1>Tell us about the <mark>property</mark>.</h1>
     <p class="lede">Share its condition, your timeline, or the questions you have. JNL Solutions can review
       the details and discuss whether a direct purchase may be a fit.</p>
@@ -720,13 +717,17 @@ header.scrolled .blogo{height:54px}
       </div>
       <p class="hero-call">Rather talk? Call or text
         <a data-cfg-href="phoneHref" href="tel:+18506967981"><span data-cfg="phone">850-696-7981</span></a></p>
+      <p class="sec-p" style="margin-top:24px;font-size:14px;color:rgba(255,255,255,.85)">JNL Solutions is a real estate investment
+        company that purchases properties directly from owners. We are not acting as your real estate
+        agent. Submitting your information does not obligate you to sell, and not every property will
+        receive an offer.</p>
     </div>
   </div>
 </div>
 
 <div class="trust"><div class="wrap">
   <div style="--tn:var(--emerald)"><b>Local</b><span>Florida Panhandle team</span></div>
-  <div style="--tn:var(--electric)"><b>Clear</b><span>Direct-purchase discussion</span></div>
+  <div style="--tn:var(--electric)"><b>Clear</b><span>Closing terms</span></div>
   <div style="--tn:var(--violet)"><b>Your</b><span>Property and timeline</span></div>
   <div style="--tn:var(--orange)"><b>No</b><span>Obligation to proceed</span></div>
 </div></div>
@@ -866,7 +867,9 @@ header.scrolled .blogo{height:54px}
 
 <section><div class="wrap">
   <span class="eyebrow">How it works</span>
-  <h2 class="sec-h">Four steps, and you can stop at any one of them.</h2>
+  <h2 class="sec-h">Four steps to explore a direct purchase.</h2>
+  <p class="sec-p">You can stop the enquiry process before signing a binding purchase agreement.
+    After signing, your obligations depend on that agreement.</p>
   <div class="steps">
     <div class="step" style="--c:var(--emerald);--cs:var(--emerald-soft)"><div class="n">1</div>
       <h4>Tell us the situation</h4>
@@ -886,19 +889,19 @@ header.scrolled .blogo{height:54px}
 <section class="on-tint"><div class="wrap">
   <div class="showcase">
     <div>
-      <span class="eyebrow">What we actually do with them</span>
-      <h2 class="sec-h">We buy the house as it stands, then we put it right.</h2>
-      <p class="sec-p">This one is ours. Ordinary Panhandle brick ranch, bought from an owner who did not
-        want to take the work on, renovated and back in use. You do not have to clean it, clear it, fix it
-        or show it. Take what you want out of it and leave the rest where it is.</p>
+      <span class="eyebrow">Buying in the current condition</span>
+      <h2 class="sec-h">We buy houses in their current condition.</h2>
+      <p class="sec-p">Depending on the property, we may make repairs or improvements after purchase.
+        JNL reviews each property's condition and
+        discusses any cleaning, clearing, repairs, or property visits individually before terms are agreed.</p>
       <div class="showcase-pts">
-        <span>No repairs asked of you</span>
-        <span>No showings</span>
-        <span>Leave what you do not want</span>
+        <span>Discuss repair needs</span>
+        <span>Agree on property access</span>
+        <span>Discuss what can stay</span>
       </div>
     </div>
     <img src="img/home-renovated.png" width="900" height="1021" loading="lazy"
-      alt="A single storey brick home in the Florida Panhandle bought and renovated by JNL Solutions">
+      alt="Illustrative image of a single-storey brick home, not a property offered for sale">
   </div>
 </div></section>
 
@@ -954,8 +957,9 @@ header.scrolled .blogo{height:54px}
   <h2 class="sec-h">The questions everybody asks first.</h2>
   <div class="faq">
     <details><summary>Does answering these questions commit me to anything?<span class="pm">+</span></summary>
-      <p>No. It is not a listing agreement, not a contract, and not a commitment to sell. You can go through
-        the whole thing, read what we send you, and never speak to us again.</p></details>
+      <p>No. Submitting the form is not a listing agreement, purchase agreement, or commitment to sell.
+        You can stop the enquiry process before signing a binding purchase agreement. After signing,
+        your obligations depend on that agreement.</p></details>
     <details><summary>How is a direct purchase discussed?<span class="pm">+</span></summary>
       <p>JNL first reviews the property details. If there is a potential fit, any proposed price, timing,
         costs, and other terms are discussed with you before you decide whether to proceed.</p></details>
@@ -1013,8 +1017,9 @@ header.scrolled .blogo{height:54px}
     <a href="#quiz">See what fits my situation</a>
   </div>
   <div class="legal" style="grid-column:1/-1">
-    JNL Solutions LLC. Nothing on this page is an offer to purchase. Any offer follows a walkthrough and is
-    set out in writing.
+    JNL Solutions LLC. Nothing on this page is an offer to purchase. Any offer is based on our review of
+    the property and transaction details and is set out in writing. Purchase price, terms, and closing
+    timelines vary by property. You are free to consider other selling options before making a decision.
     <p class="credits">Local photographs from Wikimedia Commons, cropped and tinted:
       <a href="https://commons.wikimedia.org/wiki/File:View_of_Destin,_Florida_from_the_Destin_Harbor.jpg" target="_blank" rel="noopener">Destin Harbor</a> by Destin Vacation Boat Rentals, CC BY 2.0;
       <a href="https://commons.wikimedia.org/wiki/File:Sunrise_Fort_Walton_Beach_19_January_2014_-_Bridge.jpg" target="_blank" rel="noopener">Fort Walton Beach</a> by Julie Jordan Scott, CC BY 2.0;
@@ -1293,7 +1298,7 @@ var COMBOS = {
     p:"You are running your own timeline and the estate's at the same time, and probate sets the pace whether you like it or not. Worth being clear on the first call about which of the two is actually driving you."},
   "condition|moving":{
     t:"A house that needs work and a date to be out by",
-    p:"Repairs before a listing would eat the time you do not have. The routes that take the house as it stands are the ones that can hold your date."},
+    p:"Repairs before a listing may affect your timeline. JNL can review the property's condition and your preferred closing date; any preparation and timing depend on the property and the terms agreed by everyone involved."},
   "moving|rental":{
     t:"A rental to unwind while you are moving yourself",
     p:"You are handling a tenant, a lease, and your own move at once. The good news is that the rental does not have to be empty for it to sell, so it does not have to be one more thing on your list."},
@@ -1911,7 +1916,9 @@ function trackAcceptedLead(lead){
     var report=function(user){
       try {
         if(typeof window.oaiq!=="function") return;
-        if(user && Object.keys(user).length) oaiq("init",{user:user});
+        if(user && Object.keys(user).length) ADS_PIXEL_IDS.forEach(function(pixelId){
+          oaiq("init",{pixelId:pixelId,user:user});
+        });
         oaiq("measure","lead_created",{type:"customer_action"},
           {event_id:eventId,opt_out:true});
       } catch(e) { /* A tracking failure must not affect lead delivery. */ }
